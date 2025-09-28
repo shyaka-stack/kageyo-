@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kageyo TVET School Forum - Access learning resources and courses at Kageyo Learning Center">
+    <meta name="author" content="jobeuse| yobu| job| iradukunda">
+    <title>Kageyo TVET School | Forum</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/images/LOGO-KAGEYO-TVET.png">
+    <meta name="theme-color" content="#1D4ED8">
+    <style>
+        .dropdown-menu {
+            display: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        .dropdown-menu.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .banner-slide {
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .banner-slide.active {
+            opacity: 1;
+            position: relative;
+        }
+        .card {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                position: absolute;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 0.375rem;
+                min-width: 12rem;
+                top: 100%;
+                left: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: #f3f4f6;
+                width: 100%;
+                display: none;
+            }
+            .dropdown-menu.active {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-roboto" onload="myFunction()">
+    <header class="bg-white shadow">
+        <div class="bg-blue-600 text-white py-2">
+            <div class="container mx-auto px-4 flex justify-end">
+                <a href="file:///C:/Users/user/Desktop/school/index.html" target="_blank" class="hover:underline"><i class="fa fa-phone mr-2"></i>Join WhatsApp Group</a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-wrap items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html"><img src="/images/LOGO-KAGEYO-TVET.png" alt="Kageyo TVET Logo" class="w-20 h-20"></a>
+                    <div>
+                        <a href="index.html" class="text-2xl font-bold text-blue-600">KAGEYO TVET SCHOOL</a>
+                        <p class="text-sm text-gray-500">WORK - COURAGE - SOLIDARITY</p>
+                    </div>
+                </div>
+                <button class="md:hidden text-blue-600" onclick="document.getElementById('navbar').classList.toggle('hidden')">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div id="navbar" class="hidden md:flex md:items-center w-full md:w-auto mt-4 md:mt-0">
+                    <ul class="flex flex-col md:flex-row md:space-x-6 w-full md:w-auto">
+                        <li><a href="index.html" class="block py-2 text-blue-600 hover:text-blue-800">Home</a></li>
+                        <li><a href="about.html" class="block py-2 text-blue-600 hover:text-blue-800">About Us</a></li>
+                        <li class="relative dropdown">
+                            <a href="administration.html" class="block py-2 text-blue-600 hover:text-blue-800 flex items-center">Administration <i class="fas fa-chevron-down ml-2"></i></a>
+                            <ul class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10">
+                                <li><a href="staff.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Staff</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="trainers.html" class="block py-2 text-blue-600 hover:text-blue-800">Trainers</a></li>
+                        <li><a href="trades.html" class="block py-2 text-blue-600 hover:text-blue-800">Trades</a></li>
+                        <li class="relative dropdown">
+                            <a href="#" class="block py-2 text-blue-600 hover:text-blue-800 flex items-center">More <i class="fas fa-chevron-down ml-2"></i></a>
+                            <ul class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10">
+                                <li><a href="news.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">News</a></li>
+                                <li><a href="events.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Events</a></li>
+                                <li><a href="announcements.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Announcements</a></li>
+                                <li><a href="best-performers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Best Performers</a></li>
+                                <li><a href="head-teacher.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Head Teacher</a></li>
+                                <li><a href="student-papers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Papers</a></li>
+                                <li><a href="employee-of-the-year.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Employee of the Year</a></li>
+                                <li><a href="forum.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Forum</a></li>
+                                <li><a href="developers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Developers</a></li>
+                                <li><a href="student-projects.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Projects</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="block py-2 text-blue-600 hover:text-blue-800">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Banner Slider -->
+    <section class="relative w-full h-96 bg-gray-200">
+        <div class="banner-slide active">
+            <img src="" alt="Banner 1" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h2 class="text-4xl font-bold text-white text-center">Welcome to Kageyo Learning Center</h2>
+            </div>
+        </div>
+        <div class="banner-slide">
+            <img src="" alt="Banner 2" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h2 class="text-4xl font-bold text-white text-center">Learn New Skills Today</h2>
+            </div>
+        </div>
+        <div class="banner-slide">
+            <img src="https://via.placeholder.com/1200x400?text=Join+Our+Community" alt="Banner 3" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                <h2 class="text-4xl font-bold text-white text-center">Join Our Learning Community</h2>
+            </div>
+        </div>
+        <button class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white text-blue-600 p-2 rounded-full hover:bg-blue-100" onclick="changeSlide(-1)">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white text-blue-600 p-2 rounded-full hover:bg-blue-100" onclick="changeSlide(1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+    </section>
+
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <!-- Search Bar -->
+            <div class="mb-8">
+                <div class="relative max-w-xl mx-auto">
+                    <input type="text" id="resource-search" class="w-full p-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-600" placeholder="Search courses, notes, or exams...">
+                    <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                </div>
+            </div>
+            <div class="bg-white shadow-xl rounded-2xl w-full p-6">
+                <h1 class="text-3xl font-bold text-center text-blue-700 mb-6">Welcome to Kageyo Learning Center</h1>
+                <p class="text-center text-xl text-gray-600 mb-6">
+                    You are now logged in. Below are your available tools and resources for the Kageyo Learning Center.
+                </p>
+                <div class="space-y-6">
+                    <!-- Course List -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Available Courses</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-code mr-2 text-blue-600"></i>Introduction to Programming</div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-database mr-2 text-blue-600"></i>Data Structures & Algorithms</div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-globe mr-2 text-blue-600"></i>Web Development Basics</div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-bullhorn mr-2 text-blue-600"></i>Digital Marketing 101</div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-calculator mr-2 text-blue-600"></i>Accounting Fundamentals</div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-laptop-code mr-2 text-blue-600"></i>Software Development</div>
+                        </div>
+                    </div>
+                    <!-- Accounting Notes Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Accounting Notes & Exams</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.icparwanda.com/download_dir/StudyMaterial/CPA/CPAMaterials/F1.3-FinancialAccounting.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Accounting Basics</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.icparwanda.com/download_dir/StudyMaterial/CAT/CAT%20L1.1%20-%20INTRODUCTION%20TO%20FINANCIAL%20ACCOUNTING%20-%20Study%20Manual.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Intermediate Accounting</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://elearning.reb.rw/mod/resource/view.php?id=9804" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>Accounting Exam - 2025</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm">
+                                <div class="font-semibold text-blue-700">S4: Financial Accounting TG</div>
+                                <button id="dropdown-button" class="w-full text-left bg-blue-100 p-3 rounded-lg shadow-sm text-blue-600 hover:bg-blue-200 mt-2">Click to view Units</button>
+                                <ul id="dropdown-list" class="hidden space-y-2 mt-2">
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=9302" class="text-blue-600 hover:underline" target="_blank">UNIT 1: GENERAL INTRODUCTION AND OVERVIEW OF ACCOUNTING</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=9303" class="text-blue-600 hover:underline" target="_blank">UNIT 2: ACCOUNTING SOURCE DOCUMENTS</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=9304" class="text-blue-600 hover:underline" target="_blank">UNIT 3: JOURNALIZING FINANCIAL TRANSACTION</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=9305" class="text-blue-600 hover:underline" target="_blank">UNIT 4: POSTING JOURNAL ENTRIES</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=11676" class="text-blue-600 hover:underline" target="_blank">UNIT 5: EXTRACTING A TRIAL BALANCE</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=11677" class="text-blue-600 hover:underline" target="_blank">UNIT 6: CORRECTION OF ERRORS</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=11678" class="text-blue-600 hover:underline" target="_blank">UNIT 7: CONTROL ACCOUNTS</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=11679" class="text-blue-600 hover:underline" target="_blank">UNIT 8: RECEIVING MONEY AND THE BANKING SYSTEM</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=11680" class="text-blue-600 hover:underline" target="_blank">UNIT 9: CASHBOOK AND BANK RECONCILIATION</a></li>
+                                    <li><a href="https://elearning.reb.rw/course/section.php?id=11681" class="text-blue-600 hover:underline" target="_blank">UNIT 10: FINANCIAL STATEMENTS</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Accounting Exams Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Accounting Exams</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=57899&token=3d478669a9d6396d9484ce83cf8e8df5e5cd5456" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>Accounting Exam - June 2025</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=57896&token=1533e76348dff23068f82146e39433dad376f161" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>Accounting Exam - December 2025</a></div>
+                        </div>
+                    </div>
+                    <!-- Tronc Commun Notes Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Tronc Commun Notes</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/maths_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Mathematics Notes - Tronc Commun</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/physics_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Physics Notes - Tronc Commun</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/chemistry_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Chemistry Notes - Tronc Commun</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/english_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>English Notes - Tronc Commun</a></div>
+                        </div>
+                    </div>
+                    <!-- NESA Notes Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">NESA Notes</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/nesa_maths_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Mathematics Notes - NESA</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/nesa_physics_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Physics Notes - NESA</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/nesa_chemistry_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Chemistry Notes - NESA</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/nesa_english_notes.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>English Notes - NESA</a></div>
+                        </div>
+                    </div>
+                    <!-- Upcoming NESA Exams Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Upcoming NESA Exams</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><i class="fas fa-calendar-alt mr-2 text-blue-600"></i>Mathematics Exam: June 15, 2025</div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=57987&token=890fd9a4f2aa4fba88ca7615b1bacaaaa5da44b7" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>Physics Exam: June 18, 2025</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=57989&token=c8d0e4a91c7e66cba787ba50f7692ed6d11c9e03" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>Chemistry Exam: June 20, 2025</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=43082&token=b7cf0e60539223ae39a92cdedfc2460f37b96ab1" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>English Exam: June 22, 2025</a></div>
+                        </div>
+                    </div>
+                    <!-- Software Development Notes Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Software Development Notes</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="Version Control L.O.2.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Version Control LO2</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="ALL Javascript Notes L3SOD.pptx" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Javascript Fundamentals</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="VERSION CONTROL LO.1.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Version Control LO1</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="Version Control L.O.3.docx" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Version Control LO3</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="DEVELOP SIMPLE GAME IN VUE LU1...docx" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Develop Simple Game in Vue</a></div>
+                        </div>
+                    </div>
+                    <!-- Software Development Exams Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Software Development Exams</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="files/software_dev_exam_2025.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-file-alt mr-2"></i>Software Development Exam - 2025</a></div>
+                        </div>
+                    </div>
+                    <!-- Student Profile -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Student Profile</h2>
+                        <div class="card bg-white p-4 rounded-lg shadow-sm">
+                            <p id="student-name" class="text-gray-700"><i class="fas fa-user mr-2"></i>Name: Loading...</p>
+                            <p id="student-program" class="text-gray-700"><i class="fas fa-graduation-cap mr-2"></i>Program: Loading...</p>
+                            <p id="student-enrollment" class="text-gray-700"><i class="fas fa-calendar mr-2"></i>Enrollment Date: Loading...</p>
+                        </div>
+                    </div>
+                    <!-- Resources Section -->
+                    <div class="bg-blue-50 p-4 rounded-lg shadow-md">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4">Resources</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 search-target">
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="resources/python_programming.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Download Python Programming Notes</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="resources/java_programming.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Download Java Programming Notes</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="resources/web_dev_basics.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Web Development Basics</a></div>
+                            <div class="card bg-white p-4 rounded-lg shadow-sm"><a href="resources/digital_marketing.pdf" class="text-blue-600 hover:underline" target="_blank"><i class="fas fa-book mr-2"></i>Digital Marketing Guide</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold">KAGEYO TVET SCHOOL</a>
+                    <p class="mt-2">Work - Courage - Solidarity</p>
+                    <p class="mt-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Useful Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:underline">Home</a></li>
+                        <li><a href="about.html" class="hover:underline">About Us</a></li>
+                        <li><a href="news.html" class="hover:underline">News</a></li>
+                        <li><a href="trades.html" class="hover:underline">Trades</a></li>
+                        <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Information</h3>
+                    <ul class="space-y-2">
+                        <li><a href="developers.html" class="hover:underline">Developers</a></li>
+                        <li><a href="student-projects.html" class="hover:underline">Student Projects</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© KAGEYO TVET SCHOOL 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <section id="scroll-top" class="fixed bottom-4 right-4 hidden">
+        <a href="#" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700"><i class="fas fa-arrow-up"></i></a>
+    </section>
+    <div id="loader" class="text-center">Loading site</div>
+
+    <script>
+        var myVar;
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("scroll-top").style.display = "block";
+        }
+
+        // Dropdown stabilization
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const menu = dropdown.querySelector('.dropdown-menu');
+            let timeout;
+
+            // Mobile click toggle
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                    menu.classList.toggle('active');
+                }
+            });
+
+            // Desktop hover with delay
+            if (window.innerWidth > 768) {
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    menu.classList.add('active');
+                });
+
+                dropdown.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                    }, 200);
+                });
+
+                // Keep menu open when hovering over it
+                menu.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                });
+
+                menu.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                    }, 200);
+                });
+            }
+        });
+
+        // Scroll to top
+        document.querySelector('#scroll-top a').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Accounting notes dropdown
+        document.getElementById('dropdown-button').addEventListener('click', function() {
+            const dropdownList = document.getElementById('dropdown-list');
+            dropdownList.classList.toggle('hidden');
+        });
+
+        // Banner slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner-slide');
+        function changeSlide(direction) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + direction + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+        setInterval(() => changeSlide(1), 5000);
+
+        // Search functionality
+        document.getElementById('resource-search').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            document.querySelectorAll('.search-target .card').forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(searchTerm) ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

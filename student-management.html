@@ -1,0 +1,258 @@
+  <!-- Student Details Modal -->
+  <div id="studentDetailsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
+      <button id="closeDetailsBtn" class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-xl">&times;</button>
+      <div id="studentDetailsContent"></div>
+    </div>
+  </div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Data Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <style>
+    body { font-family: 'Roboto', Arial, sans-serif; }
+    .hero-bg { background-image: url('WEB_1.JPG'); background-size: cover; background-position: center; background-repeat: no-repeat; }
+    .hero-overlay { background-image: linear-gradienst(to bottom, rgba(0,123,255,0), rgba(17, 0, 255, 0.9)); }
+    .container { max-width: 1200px; }
+    .attendance-present { background: #d1fae5; color: #065f46; }
+    .attendance-absent { background: #fee2e2; color: #991b1b; }
+  </style>
+</head>
+<body class="bg-gray-100 font-roboto">
+  <!-- Header -->
+  <header class="bg-white shadow mb-8">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <img src="logo.jpg" alt="School Logo" class="w-16 h-16 rounded-full">
+        <div>
+          <h1 class="text-2xl font-bold text-blue-600">KAGEYO TVET SCHOOL</h1>
+          <p class="text-sm text-gray-500">Student Management System</p>
+        </div>
+      </div>
+      <nav>
+        <a href="index.html" class="text-blue-600 hover:underline font-bold">Home</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hidden Login Modal (only for head teacher) -->
+  <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <form id="login-form" class="bg-white p-8 rounded-lg shadow w-full max-w-md">
+      <h2 class="text-2xl font-bold text-blue-600 mb-6 text-center">Head Teacher Login</h2>
+      <input type="text" id="username" placeholder="Username" class="border p-2 rounded w-full mb-4" required>
+      <input type="password" id="password" placeholder="Password" class="border p-2 rounded w-full mb-6" required>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700">Login</button>
+      <p id="login-error" class="text-red-600 mt-4 text-center hidden">Invalid credentials. Try again.</p>
+    </form>
+  </div>
+
+  <!-- Main Section: Audience View -->
+  <main id="main-section">
+    <section class="py-8">
+      <div class="container mx-auto px-4">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-3xl font-bold text-blue-600">Student Directory</h2>
+          <button id="admin-login-btn" class="text-xs text-gray-400 hover:text-blue-600" title="Head Teacher Login" style="background:none;border:none;outline:none;">&#9881; Admin</button>
+        </div>
+        <!-- Search Bar -->
+        <div class="mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+          <input type="text" id="search-bar" placeholder="Search by name or class..." class="border p-2 rounded w-full md:w-1/3">
+        </div>
+        <!-- Student Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white rounded-lg shadow">
+            <thead>
+              <tr class="bg-blue-600 text-white">
+                <th class="py-2 px-4">Photo</th>
+                <th class="py-2 px-4">Name</th>
+                <th class="py-2 px-4">Class</th>
+                <th class="py-2 px-4">Age</th>
+                <th class="py-2 px-4">Attendance</th>
+              </tr>
+            </thead>
+            <tbody id="student-table"></tbody>
+          </table>
+        </div>
+        <!-- Management Section (hidden for audience) -->
+        <div id="management-section" class="mt-8 hidden">
+          <h3 class="text-xl font-bold text-blue-600 mb-4">Manage Students</h3>
+          <form id="student-form" class="bg-white p-6 rounded-lg shadow mb-6 flex flex-col md:flex-row gap-4 items-end">
+            <input type="text" id="student-name" placeholder="Name" class="border p-2 rounded w-full md:w-1/4" required>
+            <input type="text" id="student-class" placeholder="Class" class="border p-2 rounded w-full md:w-1/4" required>
+            <input type="number" id="student-age" placeholder="Age" class="border p-2 rounded w-full md:w-1/4" required>
+            <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Add Student</button>
+          </form>
+          <button id="logout-btn" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer-bg text-white py-8 mt-12 relative">
+    <div class="container mx-auto px-4 text-center">
+      <p>Kageyo TVET School &copy; 2025 | Student Management System</p>
+    </div>
+  </footer>
+
+
+  <script>
+  // --- Login Modal Logic ---
+  const loginModal = document.getElementById('login-modal');
+  const loginForm = document.getElementById('login-form');
+  const loginError = document.getElementById('login-error');
+  const adminLoginBtn = document.getElementById('admin-login-btn');
+  const managementSection = document.getElementById('management-section');
+  const logoutBtn = document.getElementById('logout-btn');
+
+  // Demo credentials
+  const HEADTEACHER_USER = 'headteacher';
+  const HEADTEACHER_PASS = '12345';
+
+  adminLoginBtn.onclick = function() {
+    loginModal.classList.remove('hidden');
+  };
+
+  loginForm.onsubmit = function(e) {
+    e.preventDefault();
+    const user = document.getElementById('username').value.trim();
+    const pass = document.getElementById('password').value.trim();
+    if (user === HEADTEACHER_USER && pass === HEADTEACHER_PASS) {
+      loginModal.classList.add('hidden');
+      managementSection.classList.remove('hidden');
+      loginError.classList.add('hidden');
+    } else {
+      loginError.classList.remove('hidden');
+    }
+  };
+
+  logoutBtn.onclick = function() {
+    managementSection.classList.add('hidden');
+    loginModal.classList.remove('hidden');
+    loginForm.reset();
+  };
+
+  // --- Student Management Logic ---
+  const studentForm = document.getElementById('student-form');
+  const studentTable = document.getElementById('student-table');
+  const searchBar = document.getElementById('search-bar');
+  let students = JSON.parse(localStorage.getItem('students') || '[]');
+  let editIndex = null;
+
+  function renderStudents(filter = '') {
+    studentTable.innerHTML = '';
+    if (!filter) return; // Only show results when searching
+    students.forEach((student, idx) => {
+      if (
+        !student.name.toLowerCase().includes(filter) &&
+        !student.class.toLowerCase().includes(filter)
+      ) return;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td class="py-2 px-4">
+          <img src="${student.photo || 'https://via.placeholder.com/60?text=Photo'}" alt="${student.name} photo" class="w-14 h-14 object-cover rounded-full border cursor-pointer" onclick="showStudentDetails(${idx})" />
+        </td>
+        <td class="py-2 px-4">${student.name}</td>
+        <td class="py-2 px-4">${student.class}</td>
+        <td class="py-2 px-4">${student.age}</td>
+        <td class="py-2 px-4">
+          ${managementSection.classList.contains('hidden')
+            ? (student.attendance ? `<span class="${student.attendance === 'Present' ? 'attendance-present' : 'attendance-absent'} px-2 py-1 rounded">${student.attendance}</span>` : '<span class="bg-gray-200 px-2 py-1 rounded">-</span>')
+            : `<button onclick="toggleAttendance(${idx})" class="px-2 py-1 rounded ${student.attendance === 'Present' ? 'attendance-present' : student.attendance === 'Absent' ? 'attendance-absent' : 'bg-gray-200'}">${student.attendance || 'Mark'}</button>`
+          }
+        </td>
+        ${managementSection.classList.contains('hidden') ? '' : `<td class="py-2 px-4">
+          <button onclick="editStudent(${idx})" class="bg-yellow-500 text-white px-2 py-1 rounded mr-2">Edit</button>
+          <button onclick="deleteStudent(${idx})" class="bg-red-600 text-white px-2 py-1 rounded">Delete</button>
+        </td>`}
+      `;
+      studentTable.appendChild(tr);
+    });
+  // Show student details modal
+  function showStudentDetails(idx) {
+    const students = getStudents();
+    const student = students[idx];
+    const modal = document.getElementById('studentDetailsModal');
+    const content = document.getElementById('studentDetailsContent');
+    content.innerHTML = `
+      <div class="flex flex-col items-center mb-4">
+        <img src="${student.photo || 'https://via.placeholder.com/100?text=Photo'}" alt="${student.name} photo" class="w-24 h-24 object-cover rounded-full border mb-2" />
+        <h2 class="text-xl font-bold mb-1">${student.name}</h2>
+        <p class="text-gray-600 mb-1">Class: <span class="font-semibold">${student.class}</span></p>
+        <p class="text-gray-600 mb-1">Age: <span class="font-semibold">${student.age}</span></p>
+        <p class="text-gray-600 mb-1">Attendance: <span class="font-semibold">${student.attendance || '-'}</span></p>
+      </div>
+    `;
+    modal.classList.remove('hidden');
+  }
+
+  // Close student details modal
+  document.getElementById('closeDetailsBtn').onclick = function() {
+    document.getElementById('studentDetailsModal').classList.add('hidden');
+  };
+  }
+
+  if (studentForm) {
+    studentForm.onsubmit = function(e) {
+      e.preventDefault();
+      const name = document.getElementById('student-name').value.trim();
+      const studentClass = document.getElementById('student-class').value.trim();
+      const age = document.getElementById('student-age').value.trim();
+      if (!name || !studentClass || !age) return;
+      if (editIndex !== null) {
+        students[editIndex] = { ...students[editIndex], name, class: studentClass, age };
+        editIndex = null;
+        studentForm.querySelector('button[type="submit"]').textContent = 'Add Student';
+      } else {
+        students.push({ name, class: studentClass, age, attendance: null });
+      }
+      localStorage.setItem('students', JSON.stringify(students));
+      studentForm.reset();
+      renderStudents(searchBar.value.trim().toLowerCase());
+    };
+  }
+
+  window.editStudent = function(idx) {
+    const student = students[idx];
+    document.getElementById('student-name').value = student.name;
+    document.getElementById('student-class').value = student.class;
+    document.getElementById('student-age').value = student.age;
+    editIndex = idx;
+    studentForm.querySelector('button[type="submit"]').textContent = 'Update Student';
+  };
+
+  window.deleteStudent = function(idx) {
+    if (confirm('Are you sure you want to delete this student?')) {
+      students.splice(idx, 1);
+      localStorage.setItem('students', JSON.stringify(students));
+      renderStudents(searchBar.value.trim().toLowerCase());
+      studentForm.reset();
+      editIndex = null;
+      studentForm.querySelector('button[type="submit"]').textContent = 'Add Student';
+    }
+  };
+
+  window.toggleAttendance = function(idx) {
+    const current = students[idx].attendance;
+    students[idx].attendance = current === 'Present' ? 'Absent' : 'Present';
+    localStorage.setItem('students', JSON.stringify(students));
+    renderStudents(searchBar.value.trim().toLowerCase());
+  };
+
+  searchBar.oninput = function() {
+    renderStudents(searchBar.value.trim().toLowerCase());
+  };
+
+  // Initial render
+  renderStudents();
+
+  // --- Backend/API integration placeholder ---
+  // Replace localStorage logic with server requests for real deployment
+  </script>
+</body>
+</html>

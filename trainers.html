@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Meet the dedicated trainers and supporting staff at Kageyo TVET School">
+    <meta name="author" content="jobeuse| yobu| job| iradukunda">
+    <title>Trainers | Kageyo TVET School</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="/images/LOGO-KAGEYO-TVET.png">
+    <style>
+        .dropdown-menu {
+            display: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                position: absolute;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 0.375rem;
+                min-width: 12rem;
+                top: 100%;
+                left: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            #loader {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                transform: translate(-50%, -50%);
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: #f3f4f6;
+                width: 100%;
+                display: none;
+            }
+            .dropdown-menu.active {
+                display: block;
+            }
+        }
+        .forum-card { transition: transform 0.2s; }
+        .forum-card:hover { transform: translateY(-4px); }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+        .close-modal {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-roboto" onload="myFunction()">
+    <header class="bg-white shadow">
+        <div class="bg-blue-600 text-white py-2">
+            <div class="container mx-auto px-4 flex justify-end">
+                <a href="https://chat.whatsapp.com/EkDQiiIS9SYHg8HEZ7cVZ6" target="_blank" class="hover:underline"><i class="fa fa-phone mr-2"></i>Join WhatsApp Group</a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-wrap items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html"><img src="logo.jpg" alt="Kageyo TVET Logo" class="w-20 h-20"></a>
+                    <div>
+                        <a href="index.html" class="text-2xl font-bold text-blue-600">KAGEYO TVET SCHOOL</a>
+                        <p class="text-sm text-gray-500">WORK - COURAGE - SOLIDARITY</p>
+                    </div>
+                </div>
+                <button class="md:hidden text-blue-600" onclick="document.getElementById('navbar').classList.toggle('hidden')">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div id="navbar" class="hidden md:flex md:items-center w-full md:w-auto mt-4 md:mt-0">
+                    <ul class="flex flex-col md:flex-row md:space-x-6 w-full md:w-auto">
+                        <li><a href="index.html" class="block py-2 text-blue-600 hover:text-blue-800">Home</a></li>
+                        <li><a href="about.html" class="block py-2 text-blue-600 hover:text-blue-800">About Us</a></li>
+                        <li class="relative dropdown">
+                            <a href="administration.html" class="block py-2 text-blue-600 hover:text-blue-800 flex items-center">Administration <i class="fas fa-chevron-down ml-2"></i></a>
+                            <ul class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10">
+                                <li><a href="staff.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Staff</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="trainers.html" class="block py-2 text-blue-600 hover:text-blue-800 font-bold">Trainers</a></li>
+                        <li><a href="trades.html" class="block py-2 text-blue-600 hover:text-blue-800">Trades</a></li>
+                        <li class="relative dropdown">
+                            <a href="#" class="block py-2 text-blue-600 hover:text-blue-800 flex items-center">More <i class="fas fa-chevron-down ml-2"></i></a>
+                            <ul class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10">
+                                <li><a href="news.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">News</a></li>
+                                <li><a href="events.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Events</a></li>
+                                <li><a href="announcements.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Announcements</a></li>
+                                <li><a href="best-performers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Best Performers</a></li>
+                                <li><a href="head-teacher.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Head Teacher</a></li>
+                                <li><a href="student-papers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Papers</a></li>
+                                <li><a href="employee-of-the-year.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Employee of the Year</a></li>
+                                <li><a href="forum.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Forum</a></li>
+                                <li><a href="developers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Developers</a></li>
+                                <li><a href="student-projects.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Projects</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="block py-2 text-blue-600 hover:text-blue-800">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-blue-600 mb-2">Our Trainers</h1>
+                <div class="flex space-x-2 text-sm text-gray-600">
+                    <a href="index.html" class="hover:text-blue-600">Home</a>
+                    <span>/</span>
+                    <a href="trainers.html" class="text-blue-600">Trainers</a>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="remy.jpg" alt="IREMUKWINSHI" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('ntwali-remy')">NTWALI REMY</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 0788696283 / 0722696283</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="jean.jpg" alt="RWEMARIKA" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('rwemarika-jean-louis')">RWEMARIKA Jean Louis</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 0780259422 / 07252058</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="images/KABARIRA JEAN BAPTISTE.jpg" alt="KABARIRA" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('kabarira-jean-baptiste')">KABARIRA Jean Baptiste</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 0783052058 / 0722052058</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="images/IMG-20211209-WA0006.jpg" alt="RUKUNDO" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('rukundo-anaclet')">RUKUNDO Anaclet</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 0788348761 / 0725850974</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="images/NKUNDIMANA MARIE LOUISE.jpg" alt="NKUNDIMANA" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('nkundimana-marie-louise')">NKUNDIMANA Marie Louise</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 07850451199 / 07280451199</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="images/IMG-20211209-WA0005.jpg" alt="NDIBABAJE" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('ndibabaje-ismael')">NDIBABAJE Ismael</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 0785678187 / 0728159076</p>
+                    </div>
+                </div>
+                <div class="bg-white shadow rounded-lg overflow-hidden">
+                    <div class="text-center bg-black">
+                        <img src="images/WhatsApp Image 2022-06-02 at 8.17.34 AM.jpeg" alt="NDAHAYO" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-4">
+                        <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('ndahayo-isaac')">NDAHAYO ISAAC</a></h6>
+                        <p class="text-gray-600">Teacher</p>
+                        <p class="text-gray-600 text-sm">Phone: 0789348759</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8">
+                <h3 class="text-xl font-bold text-gray-600 mb-4">Supporting Staff</h3>
+                <hr class="mb-6">
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/AYIJYULIKANI CHRISTOPHE.jpg" alt="AYIJYURIKANE" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('ayijyurikane-christophe')">AYIJYURIKANE Christophe</a></h6>
+                            <p class="text-gray-600">Support Work</p>
+                            <p class="text-gray-600 text-sm">Phone: 0788446629 / 0728446629</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/JAN.jpg" alt="MUHAWENIMANA" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('muhawenimana-jeanine')">MUHAWENIMANA Jeanine</a></h6>
+                            <p class="text-gray-600">Support Work</p>
+                            <p class="text-gray-600 text-sm">Phone: 07889228008 / 0727327395</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/ADE.jpg" alt="Adeline" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('uwase-adeline')">Adeline UWASE</a></h6>
+                            <p class="text-gray-600">Trainer</p>
+                            <p class="text-gray-600 text-sm">Phone: 0783140542</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/BON.jpg" alt="Boniface" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('ahishakiye-boniface')">Boniface AHISHAKIYE</a></h6>
+                            <p class="text-gray-600">Trainer</p>
+                            <p class="text-gray-600 text-sm">Phone: 0786727112</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/cropped-DSC_2491.jpg" alt="DUSENGUMUREMYI" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('dusengumuremyi-jean-baptiste')">DUSENGUMUREMYI Jean Baptiste</a></h6>
+                            <p class="text-gray-600">Trainer & Lab Manager</p>
+                            <p class="text-gray-600 text-sm">Phone: 0784139821 / 076687135</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/Screenshot_20211209-125534.png" alt="GASANGWA" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('gasangwa-leonce')">GASANGWA LEONCE</a></h6>
+                            <p class="text-gray-600">Class Teacher: L5 ACC</p>
+                            <p class="text-gray-600 text-sm">Phone: 0783406384</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/BUGIRUWENDA Jean Bosco.jpg" alt="BUGIRUWENDA" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('bugiruwenda-jean-bosco')">BUGIRUWENDA Jean Bosco</a></h6>
+                            <p class="text-gray-600">Trainer</p>
+                            <p class="text-gray-600 text-sm">Phone: 0785765091</p>
+                        </div>
+                    </div>
+                    <div class="bg-white shadow rounded-lg overflow-hidden">
+                        <div class="text-center bg-black">
+                            <img src="images/WhatsApp Image 2023-02-09 at 3.44.44 PM.jpeg" alt="TWIZEYIMANA" class="w-full h-64 object-cover">
+                        </div>
+                        <div class="p-4">
+                            <h6 class="font-bold"><a href="#" class="text-blue-600 hover:underline" onclick="showModal('twizeyimana-vincent')">TWIZEYIMANA Vincent</a></h6>
+                            <p class="text-gray-600">Trainer</p>
+                            <p class="text-gray-600 text-sm">Phone: 0788895825</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Latest News Section -->
+    <section id="news" class="bg-white py-12">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center text-blue-600 mb-8">Latest News</h2>
+            <div id="news-container" class="grid grid-cols-1 md:grid-cols-2 gap-6"></div>
+        </div>
+    </section>
+
+    <!-- Modal for Trainer Descriptions -->
+    <div id="trainer-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title" class="text-2xl font-bold text-blue-600 mb-4"></h2>
+            <p id="modal-description" class="text-gray-600"></p>
+        </div>
+    </div>
+
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold">KAGEYO TVET SCHOOL</a>
+                    <p class="mt-2">Work - Courage - Solidarity</p>
+                    <p class="mt-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Useful Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:underline">Home</a></li>
+                        <li><a href="about.html" class="hover:underline">About Us</a></li>
+                        <li><a href="news.html" class="hover:underline">News</a></li>
+                        <li><a href="trades.html" class="hover:underline">Trades</a></li>
+                        <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Information</h3>
+                    <ul class="space-y-2">
+                        <li><a href="developers.html" class="hover:underline">Developers</a></li>
+                        <li><a href="student-projects.html" class="hover:underline">Student Projects</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© KAGEYO TVET SCHOOL 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <section id="scroll-top" class="fixed bottom-4 right-4 hidden">
+        <a href="#" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700"><i class="fas fa-arrow-up"></i></a>
+    </section>
+    <div id="loader" class="text-center">Loading site</div>
+
+    <script>
+        var myVar;
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("scroll-top").style.display = "block";
+        }
+
+        // Dropdown stabilization
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const menu = dropdown.querySelector('.dropdown-menu');
+            let timeout;
+
+            // Mobile click toggle
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                    menu.classList.toggle('active');
+                }
+            });
+
+            // Desktop hover with delay
+            if (window.innerWidth > 768) {
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    menu.classList.add('active');
+                });
+
+                dropdown.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                    }, 200);
+                });
+
+                // Keep menu open when hovering over it
+                menu.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                });
+
+                menu.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                    }, 200);
+                });
+            }
+        });
+
+        // Scroll to top
+        document.querySelector('#scroll-top a').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Fetch and display news
+        async function fetchNews() {
+            try {
+                const response = await fetch('http://localhost:3000/api/news');
+                const news = await response.json();
+                const newsContainer = document.getElementById('news-container');
+                newsContainer.innerHTML = '';
+
+                news.forEach(item => {
+                    const newsCard = document.createElement('div');
+                    newsCard.className = 'forum-card bg-gray-100 p-6 rounded-lg';
+                    newsCard.innerHTML = `
+                        <h3 class="text-xl font-semibold text-blue-600 mb-2">${item.title}</h3>
+                        <p class="text-gray-600 mb-2">${item.description}</p>
+                        <p class="text-gray-500 text-sm">Posted on: ${new Date(item.date).toLocaleDateString()}</p>
+                        <a href="#" class="text-blue-600 hover:underline mt-4 inline-block">Discuss News</a>
+                    `;
+                    newsContainer.appendChild(newsCard);
+                });
+            } catch (err) {
+                console.error('Error fetching news:', err);
+            }
+        }
+
+        // Trainer descriptions
+        const trainerDescriptions = {
+            'ntwali-remy': {
+                name: 'NTWALI REMY',
+                description: 'Remy Ntwali is an experienced teacher specializing in vocational training with over 10 years of experience in technical education.'
+            },
+            'rwemarika-jean-louis': {
+                name: 'RWEMARIKA Jean Louis',
+                description: 'Jean Louis Rwemarika teaches advanced technical subjects and is known for his hands-on approach to student learning.'
+            },
+            'kabarira-jean-baptiste': {
+                name: 'KABARIRA Jean Baptiste',
+                description: 'Jean Baptiste Kabarira focuses on practical skills development in engineering disciplines.'
+            },
+            'rukundo-anaclet': {
+                name: 'RUKUNDO Anaclet',
+                description: 'Anaclet Rukundo is a dedicated educator with expertise in electrical systems training.'
+            },
+            'nkundimana-marie-louise': {
+                name: 'NKUNDIMANA Marie Louise',
+                description: 'Marie Louise Nkudimana specializes in business and accounting education.'
+            },
+            'ndibabaje-ismael': {
+                name: 'NDIBABAJE Ismael',
+                description: 'Ismael Ndibabaje is a skilled instructor in computer science and IT.'
+            },
+            'ndahayo-isaac': {
+                name: 'NDAHAYO ISAAC',
+                description: 'Isaac Ndahayo teaches mechanical engineering with a focus on practical applications.'
+            },
+            'ayijyurikane-christophe': {
+                name: 'AYIJYURIKANE Christophe',
+                description: 'Christophe Ayijyurikane supports the school’s operations with expertise in facility management.'
+            },
+            'muhawenimana-jeanine': {
+                name: 'MUHAWENIMANA Jeanine',
+                description: 'Jeanine Muhawenimana provides essential support in administrative tasks.'
+            },
+            'uwase-adeline': {
+                name: 'Adeline UWASE',
+                description: 'Adeline Uwase is a trainer specializing in hospitality and customer service.'
+            },
+            'ahishakiye-boniface': {
+                name: 'Boniface AHISHAKIYE',
+                description: 'Boniface Ahishakiye trains students in construction and building trades.'
+            },
+            'dusengumuremyi-jean-baptiste': {
+                name: 'DUSENGUMUREMYI Jean Baptiste',
+                description: 'Jean Baptiste Dusengumuremyi manages the lab and trains in advanced technical skills.'
+            },
+            'gasangwa-leonce': {
+                name: 'GASANGWA LEONCE',
+                description: 'Leonce Gasangwa is the class teacher for Level 5 Accounting, guiding students to excellence.'
+            },
+            'bugiruwenda-jean-bosco': {
+                name: 'BUGIRUWENDA Jean Bosco',
+                description: 'Jean Bosco Bugiruwenda trains students in automotive technology.'
+            },
+            'twizeyimana-vincent': {
+                name: 'TWIZEYIMANA Vincent',
+                description: 'Vincent Twizeyimana is a trainer in renewable energy systems.'
+            }
+        };
+
+        // Modal functions
+        function showModal(trainerId) {
+            const trainer = trainerDescriptions[trainerId];
+            if (trainer) {
+                document.getElementById('modal-title').textContent = trainer.name;
+                document.getElementById('modal-description').textContent = trainer.description;
+                document.getElementById('trainer-modal').style.display = 'flex';
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('trainer-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('trainer-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('trainer-modal')) {
+                closeModal();
+            }
+        });
+
+        // Load news on page load
+        window.addEventListener('load', () => {
+            fetchNews();
+        });
+    </script>
+</body>
+</html>

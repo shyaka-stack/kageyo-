@@ -1,0 +1,1291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Access S3 Mathematics, Entrepreneurship, Physics, Chemistry, Software Development, and Accounting syllabi and past papers from Kageyo TVET School, including resources from 2013 to 2023.">
+    <meta name="keywords" content="Kageyo syllabi, S3 Mathematics, S3 Entrepreneurship, S3 Physics, S3 Chemistry, S3 Software Development, S3 Accounting, Kageyo TVET School, past papers">
+    <meta name="author" content="Kageyo TVET School">
+    <meta name="robots" content="index, follow">
+    <title>Syllabi | Kageyo TVET School</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="images/LOGO-KAGEYO-TVET.png" rel="icon">
+    <link rel="icon" type="image/png" sizes="32x32" href="download.jpg">
+    <meta name="theme-color" content="#1D4ED8">
+
+    <style>
+        body {
+            background-image: url(WEB_1.jpg);
+            font-family: 'Roboto', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .banner-container {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+        .banner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .banner.active {
+            opacity: 1;
+        }
+        .banner-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+           background-image: url(WEB_1.jpg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            text-align: center;
+            padding: 1rem;
+        }
+        .banner-overlay h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .banner-overlay p {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .banner-cta {
+            background-color: #1D4ED8;
+            color: #ffffff;
+            padding: 0.75rem 2rem;
+            border-radius: 0.375rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        .banner-cta:hover {
+            background-color: #3B82F6;
+        }
+        .banner-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+        }
+        .banner-dot {
+            width: 12px;
+            height: 12px;
+            background-color: #ffffff;
+            opacity: 0.5;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        .banner-dot.active {
+            opacity: 1;
+        }
+        .banner-dot:hover {
+            opacity: 0.8;
+        }
+        #particle-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        .table-container table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table-container th, .table-container td {
+            padding: 0.75rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .table-container th {
+            background-color: #1D4ED8;
+            color: #ffffff;
+        }
+        .table-container tr:hover {
+            background-color: #e3f2fd;
+        }
+        .search-container input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+        }
+        .search-container input:focus {
+            outline: none;
+            border-color: #1D4ED8;
+            box-shadow: 0 0 0 3px rgba(29, 78, 216, 0.2);
+        }
+        .dropdown-menu {
+            display: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                position: absolute;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 0.375rem;
+                min-width: 12rem;
+                top: 100%;
+                left: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            #loader {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                transform: translate(-50%, -50%);
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: #f3f4f6;
+                width: 100%;
+                display: none;
+            }
+            .dropdown-menu.active {
+                display: block;
+            }
+        }
+        :focus {
+            outline: 3px solid #1D4ED8;
+            outline-offset: 2px;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        #chatbot-window {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 360px;
+            max-height: 480px;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            overflow: hidden;
+        }
+        #chatbot-window.active {
+            display: block;
+        }
+        #chatbot-messages {
+            height: 360px;
+            overflow-y: auto;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+        }
+        #chatbot-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+        #chatbot-input:focus {
+            outline: 2px solid #1D4ED8;
+        }
+        #chatbot-header {
+            background-color: #1D4ED8;
+            color: white;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-user-message {
+            background-color: #e3f2fd;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+            max-width: 80%;
+            align-self: flex-end;
+        }
+        .chatbot-bot-message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1D4ED8;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        .chatbot-bot-message .message-content {
+            flex-grow: 1;
+        }
+        .chatbot-link {
+            color: #1D4ED8;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-roboto" onload="myFunction()">
+    <header class="bg-white shadow" role="banner">
+        <div class="bg-blue-600 text-white py-2">
+            <div class="container mx-auto px-4 flex justify-end">
+                <a href="https://chat.whatsapp.com/EkDQiiIS9SYHg8HEZ7cVZ6" target="_blank" class="hover:underline" aria-label="Join Kageyo TVET School WhatsApp Group">
+                    <i class="fab fa-whatsapp mr-2" aria-hidden="true"></i>Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-wrap items-center justify-between" role="navigation" aria-label="Main navigation">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" aria-label="Kageyo TVET School Home">
+                        <img src="logo.jpg" alt="Kageyo TVET School Logo" class="w-20 h-20">
+                    </a>
+                    <div>
+                        <h1>
+                            <a href="index.html" class="text-2xl font-bold text-blue-600">KAGEYO TVET SCHOOL</a>
+                        </h1>
+                        <p class="text-sm text-gray-500">WORK - COURAGE - SOLIDARITY</p>
+                    </div>
+                </div>
+                <button class="md:hidden text-blue-600" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar" onclick="toggleNav()">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
+                    <span class="sr-only">Toggle menu</span>
+                </button>
+                <div id="navbar" class="hidden md:flex md:items-center w-full md:w-auto mt-4 md:mt-0" role="menu">
+                    <ul class="flex flex-col md:flex-row md:space-x-6 w-full md:w-auto">
+                        <li><a href="index.html" class="block py-2 text-blue-600 hover:text-blue-800">Home</a></li>
+                        <li><a href="about.html" class="block py-2 text-blue-600 hover:text-blue-800">About Us</a></li>
+                        <li><a href="apply.html" class="block py-2 text-blue-600 hover:text-blue-800">Apply for a Job</a></li>
+                        <li><a href="administration.html" class="block py-2 text-blue-600 hover:text-blue-800">Administration</a></li>
+                        <li><a href="trainers.html" class="block py-2 text-blue-600 hover:text-blue-800">Trainers</a></li>
+                        <li><a href="trades.html" class="block py-2 text-blue-600 hover:text-blue-800">Trades</a></li>
+                        <li class="relative dropdown">
+                            <button class="block py-2 text-blue-600 hover:text-blue-800 flex items-center" aria-expanded="false" aria-controls="more-menu" onclick="toggleDropdown('more-menu')">
+                                More <i class="fas fa-chevron-down ml-2"></i>
+                                <span class="sr-only">Toggle More submenu</span>
+                            </button>
+                            <ul id="more-menu" class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48">
+                                <li><a href="news.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">News</a></li>
+                                <li><a href="events.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Events</a></li>
+                                <li><a href="announcements.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Announcements</a></li>
+                                <li><a href="best-performers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Best Performers</a></li>
+                                <li><a href="head-teacher.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Head Teacher</a></li>
+                                <li><a href="student-papers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Papers</a></li>
+                                <li><a href="pastpapers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Past Papers</a></li>
+                                <li><a href="employee-of-the-year.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Employee of the Year</a></li>
+                                <li><a href="forum.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Forum</a></li>
+                                <li><a href="developers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Developers</a></li>
+                                <li><a href="student-projects.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Projects</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="block py-2 text-blue-600 hover:text-blue-800">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="banner-container" role="region" aria-label="S3 resources banner carousel">
+            <canvas id="particle-canvas"></canvas>
+            <div class="banner active" style="background-image: url('math-banner1.jpg');">
+                <div class="banner-overlay">
+                    <h2>Master Your Subjects</h2>
+                    <p>Download S3 resources for Mathematics, Entrepreneurship, Physics, Chemistry, Software Development, and Accounting.</p>
+                    <a href="#resources" class="banner-cta">Explore Resources</a>
+                </div>
+            </div>
+            <div class="banner" style="background-image: url('math-banner2.jpg');">
+                <div class="banner-overlay">
+                    <h2>Prepare with Confidence</h2>
+                    <p>Access past papers from 2013 to 2023 for all S3 subjects.</p>
+                    <a href="#resources" class="banner-cta">Explore Resources</a>
+                </div>
+            </div>
+            <div class="banner" style="background-image: url('math-banner3.jpg');">
+                <div class="banner-overlay">
+                    <h2>Achieve Excellence</h2>
+                    <p>Study with Kageyo’s comprehensive S3 resources.</p>
+                    <a href="#resources" class="banner-cta">Explore Resources</a>
+                </div>
+            </div>
+            <div class="banner-dots">
+                <div class="banner-dot active" data-index="0"></div>
+                <div class="banner-dot" data-index="1"></div>
+                <div class="banner-dot" data-index="2"></div>
+            </div>
+        </div>
+        <div class="bg-gray-100 py-6">
+            <div class="container mx-auto px-4">
+                <nav aria-label="Breadcrumb">
+                    <div class="flex space-x-2">
+                        <a href="index.html" class="text-blue-600 hover:underline"><i class="fa fa-home mr-2" aria-hidden="true"></i>Home</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#syllabus.html" class="text-blue-600 hover:underline">Syllabi</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#mathematics" class="text-blue-600 hover:underline">Mathematics</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#entrepreneurship" class="text-blue-600 hover:underline">Entrepreneurship</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#physics" class="text-blue-600 hover:underline">Physics</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#chemistry" class="text-blue-600 hover:underline">Chemistry</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#software-development" class="text-blue-600 hover:underline">Software Development</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#accounting" class="text-blue-600 hover:underline">Accounting</a>
+                        <span class="text-gray-500">//</span>
+                        <a href="#S3" class="text-blue-600 hover:underline font-bold">S3</a>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <section id="resources" class="py-12 bg-white" aria-label="S3 Syllabi and Past Papers">
+            <div class="container mx-auto px-4">
+                <div class="bg-gray-50 p-6 rounded-lg shadow">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4 md:mb-0">S3 Mathematics Resources</h2>
+                        <div class="w-full md:w-1/3 search-container">
+                            <label for="search" class="sr-only">Search syllabi</label>
+                            <input type="text" id="search" class="w-full" placeholder="Search by year or subject..." aria-label="Search syllabi">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="syllabus-table" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3 text-right">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/open?id=1gxBNVLn9-b_y5T8896B5qU041dMiw7Oz&usp=drive_copy" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2023.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.6 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1aqvZ5-PYKOJGiALKUKk_mEPj4RpTsMT/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2021.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1HlXs64hGZaWiHTIMY-qXyjGHVeJ97r/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2018.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.7 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1i6gy94bZjEndMZm4cPH4x-je6j4kNYL/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2017.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.6 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1iNRH6_u4V_Np3VmDy-4qxVac1FwDcJnZ/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2016.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/16Jqn2-ICpuIyoVlginEfNy7eazgZaSj/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2015.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.6 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1lndVkQNK3-nL2Zz_Ee6Zjxyy1Rabinn2/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2014.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1J5wEgU1kf3jcqtasCli52S6B3FoIBB6/view" target="_blank" class="text-blue-600 hover:underline">Mathematics S3 2013.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.8 MB</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="p-3 text-gray-500 text-sm">8 files, 12.8 MB in total</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow mt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4 md:mb-0">S3 Entrepreneurship Resources</h2>
+                        <div class="w-full md:w-1/3 search-container">
+                            <label for="search-entrepreneurship" class="sr-only">Search entrepreneurship syllabi</label>
+                            <input type="text" id="search-entrepreneurship" class="w-full" placeholder="Search by year..." aria-label="Search entrepreneurship syllabi">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="entrepreneurship-table" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3 text-right">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/open?id=1lsB-nnVQpYa8oiDy3JqtcPHsQtXnBSFP&usp=drive_copy" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2023.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1MsEPDIvRIWpWevDqDUZTuWdfnrzGq_2/view" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2021.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1Mjdj6zXCGNU6cxfNq_7HFWXFkDmIWgl/view" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2019.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1nIUlKfOOh9uaI3d5H5OmTNpt2emwzxtr/view" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2018.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1-zhSIGAkTd81R4Tzvyu8mHJOljpJxsSB/view" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2017.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1LdHADlk2k4CV4r6Uw2UNzbNzH5pDiDyP/view" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2016.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1A4UidPsFPtulb8wWqyRUSZoxvfkB4qq/view" target="_blank" class="text-blue-600 hover:underline">Entrepreneurship S3 2015.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="p-3 text-gray-500 text-sm">7 files, 9.6 MB in total</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow mt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4 md:mb-0">S3 Physics Resources</h2>
+                        <div class="w-full md:w-1/3 search-container">
+                            <label for="search-physics" class="sr-only">Search physics syllabi</label>
+                            <input type="text" id="search-physics" class="w-full" placeholder="Search by year..." aria-label="Search physics syllabi">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="physics-table" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3 text-right">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/open?id=1D2QvpI4xdFrQAQ5TaVD8t6eXDtPRALgD&usp=drive_copy" target="_blank" class="text-blue-600 hover:underline">Physics S3 2023.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1-fJgNIu1DQP38zsMki5sWuKDmFvieN1w/view" target="_blank" class="text-blue-600 hover:underline">Physics S3 2021.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1EtY5lxHBjWadOAPhoUbtjXXw6W56Efba/view" target="_blank" class="text-blue-600 hover:underline">Physics S3 2019.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1Um-9OVbLx43RNecdU5nCPv9GfyrIs-W3/view" target="_blank" class="text-blue-600 hover:underline">Physics S3 2018.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1G8T6zOUOp2nqRZbTX9ER1WA4a3_aRX5/view" target="_blank" class="text-blue-600 hover:underline">Physics S3 2017.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1-cFEFxDt4IEwLrjfhp8EY2zo8TxeJ/view" target="_blank" class="text-blue-600 hover:underline">Physics S3 2016.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1xBtq-JWgV1FFkXPY-hGKMkiAsAOR9XXy/view" target="_blank" class="text-blue-600 hover:underline">Physics S3 2015.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="p-3 text-gray-500 text-sm">7 files, 9.6 MB in total</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow mt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4 md:mb-0">S3 Chemistry Resources</h2>
+                        <div class="w-full md:w-1/3 search-container">
+                            <label for="search-chemistry" class="sr-only">Search chemistry syllabi</label>
+                            <input type="text" id="search-chemistry" class="w-full" placeholder="Search by year..." aria-label="Search chemistry syllabi">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="chemistry-table" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3 text-right">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/open?id=1XGVbbVTOZKkmMuXOm8cNkAXNt8Wdeta-&usp=drive_copy" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2023.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/16DrVd1oaEn6WmB1Kx7hc89exnANVh5Mp/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2021.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1DejfKQ-6C2GTh8KzabDIWuyEMA-iNK9/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2019.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1q1lWcQ5nJJJeMoLsIuy9S7dUKJaVqwt/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2018.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1YIJckF9OrVkX-d6ccQpoRcAwfa6jEbkh/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2017.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1_Pq4j1Sd6FKzXwJiVpKtwMaR4idpylPG/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2016.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/18BqC7IX4zTC97nHFfInEkjSJZLFX6tiU/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2015.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://drive.google.com/file/d/1GdZVx_WHVhNWE4xdvZAafQgr5J9pM-Bh/view" target="_blank" class="text-blue-600 hover:underline">Chemistry S3 2013.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="p-3 text-gray-500 text-sm">8 files, 11.5 MB in total</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow mt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4 md:mb-0"> Software Development Resources</h2>
+                        <div class="w-full md:w-1/3 search-container">
+                            <label for="search-software" class="sr-only">Search software development syllabi</label>
+                            <input type="text" id="search-software" class="w-full" placeholder="Search by year..." aria-label="Search software development syllabi">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="software-table" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3 text-right">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86544&token=8b5255fed4e0e74b750dd39539bc5fc277c78c65" target="_blank" class="text-blue-600 hover:underline">website development and maintenance 2023.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.2 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86548&token=f81f6ba5c988c0e3e10dbf753ad898f7ba62811a" target="_blank" class="text-blue-600 hover:underline">system analysis 2022.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86546&token=4a9d3d57830fc06e6abb3e5a15d5e418ba0f7aea" target="_blank" class="text-blue-600 hover:underline">web application development 2021.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.2 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86551&token=0f2686b69d1bfe4823a3af50f7dec4a3b5f3b55a" target="_blank" class="text-blue-600 hover:underline">database Development 2020.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86543&token=bf6bcbf126bc954c84b59ff027fe0f0f8206526b" target="_blank" class="text-blue-600 hover:underline">algorthim and programming 2019.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="p-3 text-gray-500 text-sm">5 files, 6.4 MB in total</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-6 rounded-lg shadow mt-8">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-blue-600 mb-4 md:mb-0">S3 Accounting Resources</h2>
+                        <div class="w-full md:w-1/3 search-container">
+                            <label for="search-accounting" class="sr-only">Search accounting syllabi</label>
+                            <input type="text" id="search-accounting" class="w-full" placeholder="Search by year..." aria-label="Search accounting syllabi">
+                        </div>
+                    </div>
+                    <div class="table-container">
+                        <table id="accounting-table" class="w-full text-left">
+                            <thead>
+                                <tr>
+                                    <th class="p-3">Name</th>
+                                    <th class="p-3 text-right">Size</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86566&token=30651e158a63f122e70d204ec73f8c1a981809b0" target="_blank" class="text-blue-600 hover:underline">TAXATION.PDF</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.5 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86568&token=a7922c39bfc5d77048259617fc6d9f2a01a888eb" target="_blank" class="text-blue-600 hover:underline">BANK Accounting 2022.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86555&token=32eb461f75a19b6c95beeb4abc9f7681f7ff4336" target="_blank" class="text-blue-600 hover:underline">Business Management</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86561&token=0e811854274607f74422a2bba88b5cfa74b10e4a" target="_blank" class="text-blue-600 hover:underline">Financial Accounting 2020.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.4 MB</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3">
+                                        <i class="fa fa-file-text mr-2" aria-hidden="true"></i>
+                                        <a href="https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86560&token=7b58949aaeac30c261ea6aeccd0e4dc96d71d914" target="_blank" class="text-blue-600 hover:underline">PRINCIPLES AUDITING 2019.pdf</a>
+                                    </td>
+                                    <td class="p-3 text-right">1.3 MB</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2" class="p-3 text-gray-500 text-sm">5 files, 6.9 MB in total</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-12" role="contentinfo">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h2><a href="index.html" class="text-2xl font-bold">Kageyo TVET School</a></h2>
+                    <p class="mt-2">Work - Courage - Solidarity</p>
+                    <p class="mt-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector
+                    </p>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Useful Links</h2>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:underline">Home</a></li>
+                        <li><a href="about.html" class="hover:underline">About Us</a></li>
+                        <li><a href="administration.html" class="hover:underline">Administration</a></li>
+                        <li><a href="trades.html" class="hover:underline">Trades</a></li>
+                        <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Information</h2>
+                    <ul class="space-y-2">
+                        <li><a href="developers.html" class="hover:underline">Developers</a></li>
+                        <li><a href="student-projects.html" class="hover:underline">Student Projects</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold mb-4">Location</h2>
+                    <img src="kt.jpg" alt="Kageyo TVET School location near Kageyo sector office" class="w-full max-w-[300px] h-[200px] object-cover rounded-lg mb-4">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.329223456789!2d30.119!3d-1.678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMWHCrDQwJzQwLjgiUyAzMMKwMDcnMTYuNCJF!5e0!3m2!1sen!2srw!4v1739898299999!5m2!1sen!2srw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" aria-label="Map showing Kageyo TVET School location" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <a href="https://www.google.com/maps/@-1.678,30.121,15z" target="_blank" class="text-blue-300 hover:underline">View Larger Map</a>
+                    <p class="space-y-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector<br>
+                        Near Kageyo Tea Factory<br>
+                        <a href="tel:0788521465" class="hover:underline">Phone: 0788521465</a>
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© Kageyo TVET School 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <section id="scroll-top" class="fixed bottom-4 right-4 hidden">
+        <button class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700" aria-label="Scroll to top of page">
+            <i class="fas fa-arrow-up" aria-hidden="true"></i>
+        </button>
+    </section>
+
+    <section id="chatbot" class="fixed bottom-4 right-16">
+        <button id="chatbot-toggle" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700" aria-label="Toggle chat window" aria-expanded="false" aria-controls="chatbot-window">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span class="sr-only">Open chat</span>
+        </button>
+        <div id="chatbot-window" role="dialog" aria-label="Chat with Kageyo TVET School assistant">
+            <div id="chatbot-header">
+                <span>Kageyo Assistant</span>
+                <button id="chatbot-close" class="text-white hover:text-gray-200" aria-label="Close chat window">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div id="chatbot-messages" aria-live="polite">
+                <div class="chatbot-bot-message">
+                    <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                    <div class="message-content">Hi! Ask about S3 past papers or school info. Try 'search 2023' or 'go to contact'.</div>
+                </div>
+            </div>
+            <div class="p-2">
+                <input id="chatbot-input" type="text" placeholder="Ask about S3 past papers..." aria-label="Type your question">
+                <button id="chatbot-send" class="bg-blue-600 text-white px-4 py-2 mt-2 rounded hover:bg-blue-700" aria-label="Send message">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="loader" class="text-center" aria-live="polite">Loading site</div>
+
+    <script>
+        function myFunction() {
+            setTimeout(showPage, 3000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("scroll-top").style.display = "block";
+        }
+
+        function toggleNav() {
+            const nav = document.getElementById("navbar");
+            const button = document.querySelector("button[aria-controls='navbar']");
+            const isExpanded = nav.classList.toggle("hidden");
+            button.setAttribute("aria-expanded", !isExpanded);
+        }
+
+        function toggleDropdown(menuId) {
+            const menu = document.getElementById(menuId);
+            const button = document.querySelector(`button[aria-controls="${menuId}"]`);
+            const isExpanded = menu.classList.toggle("active");
+            button.setAttribute("aria-expanded", isExpanded);
+        }
+
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const button = dropdown.querySelector('button');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            let timeout;
+
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    toggleDropdown(menu.id);
+                }
+            });
+
+            if (window.innerWidth > 768) {
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    menu.classList.add('active');
+                    button.setAttribute('aria-expanded', 'true');
+                });
+
+                dropdown.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                        button.setAttribute('aria-expanded', 'false');
+                    }, 200);
+                });
+
+                menu.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                });
+
+                menu.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                        button.setAttribute('aria-expanded', 'false');
+                    }, 200);
+                });
+            }
+
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDropdown(menu.id);
+                }
+            });
+        });
+
+        document.querySelector('#scroll-top button').addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Banner rotation
+        const banners = document.querySelectorAll('.banner');
+        const bannerDots = document.querySelectorAll('.banner-dot');
+        let currentBanner = 0;
+        let bannerInterval;
+
+        function showBanner(index) {
+            banners.forEach(b => b.classList.remove('active'));
+            bannerDots.forEach(d => d.classList.remove('active'));
+            banners[index].classList.add('active');
+            bannerDots[index].classList.add('active');
+            currentBanner = index;
+        }
+
+        function nextBanner() {
+            showBanner((currentBanner + 1) % banners.length);
+        }
+
+        function startBannerRotation() {
+            bannerInterval = setInterval(nextBanner, 7700);
+        }
+
+        function stopBannerRotation() {
+            clearInterval(bannerInterval);
+        }
+
+        bannerDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                stopBannerRotation();
+                showBanner(parseInt(dot.getAttribute('data-index')));
+                startBannerRotation();
+            });
+        });
+
+        const bannerContainer = document.querySelector('.banner-container');
+        bannerContainer.addEventListener('mouseenter', stopBannerRotation);
+        bannerContainer.addEventListener('mouseleave', startBannerRotation);
+
+        // Particle effect
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = bannerContainer.offsetWidth;
+        canvas.height = bannerContainer.offsetHeight;
+
+        const particles = [];
+        const particleCount = 30;
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedY = Math.random() * 1 + 0.5;
+                this.color = Math.random() > 0.5 ? '#1D4ED8' : '#FFFFFF';
+            }
+            update() {
+                this.y += this.speedY;
+                if (this.y > canvas.height) {
+                    this.y = 0;
+                    this.x = Math.random() * canvas.width;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            canvas.width = bannerContainer.offsetWidth;
+            canvas.height = bannerContainer.offsetHeight;
+        });
+
+        initParticles();
+        animateParticles();
+        startBannerRotation();
+
+        // Search functionality
+        const searchInput = document.getElementById('search');
+        const mathTableRows = document.querySelectorAll('#syllabus-table tbody tr');
+        const entrepreneurshipTableRows = document.querySelectorAll('#entrepreneurship-table tbody tr');
+        const physicsTableRows = document.querySelectorAll('#physics-table tbody tr');
+        const chemistryTableRows = document.querySelectorAll('#chemistry-table tbody tr');
+        const softwareTableRows = document.querySelectorAll('#software-table tbody tr');
+        const accountingTableRows = document.querySelectorAll('#accounting-table tbody tr');
+
+        searchInput.addEventListener('input', () => {
+            const query = searchInput.value.toLowerCase();
+            mathTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) || query.includes('mathematics') ? '' : 'none';
+            });
+            entrepreneurshipTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) || query.includes('entrepreneurship') ? '' : 'none';
+            });
+            physicsTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) || query.includes('physics') ? '' : 'none';
+            });
+            chemistryTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) || query.includes('chemistry') ? '' : 'none';
+            });
+            softwareTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) || query.includes('software') ? '' : 'none';
+            });
+            accountingTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) || query.includes('accounting') ? '' : 'none';
+            });
+        });
+
+        const searchEntrepreneurshipInput = document.getElementById('search-entrepreneurship');
+        searchEntrepreneurshipInput.addEventListener('input', () => {
+            const query = searchEntrepreneurshipInput.value.toLowerCase();
+            entrepreneurshipTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+
+        const searchPhysicsInput = document.getElementById('search-physics');
+        searchPhysicsInput.addEventListener('input', () => {
+            const query = searchPhysicsInput.value.toLowerCase();
+            physicsTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+
+        const searchChemistryInput = document.getElementById('search-chemistry');
+        searchChemistryInput.addEventListener('input', () => {
+            const query = searchChemistryInput.value.toLowerCase();
+            chemistryTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+
+        const searchSoftwareInput = document.getElementById('search-software');
+        searchSoftwareInput.addEventListener('input', () => {
+            const query = searchSoftwareInput.value.toLowerCase();
+            softwareTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+
+        const searchAccountingInput = document.getElementById('search-accounting');
+        searchAccountingInput.addEventListener('input', () => {
+            const query = searchAccountingInput.value.toLowerCase();
+            accountingTableRows.forEach(row => {
+                const name = row.querySelector('td:first-child a').textContent.toLowerCase();
+                row.style.display = name.includes(query) ? '' : 'none';
+            });
+        });
+
+        // Chatbot logic
+        const navigationMap = {
+            'home': 'index.html',
+            'about': 'about.html',
+            'apply': 'apply.html',
+            'administration': 'administration.html',
+            'trainers': 'trainers.html',
+            'trades': 'trades.html',
+            'news': 'news.html',
+            'events': 'events.html',
+            'announcements': 'announcements.html',
+            'best performers': 'best-performers.html',
+            'head teacher': 'head-teacher.html',
+            'student papers': 'student-papers.html',
+            'past papers': 'pastpapers.html',
+            'employee': 'employee-of-the-year.html',
+            'forum': 'forum.html',
+            'developers': 'developers.html',
+            'student projects': 'student-projects.html',
+            'contact': 'contact.html'
+        };
+
+        const resources = {
+            'mathematics': [
+                { year: 2023, url: 'https://drive.google.com/open?id=1gxBNVLn9-b_y5T8896B5qU041dMiw7Oz&usp=drive_copy', size: '1.6 MB' },
+                { year: 2021, url: 'https://drive.google.com/file/d/1aqvZ5-PYKOJGiALKUKk_mEPj4RpTsMT/view', size: '1.5 MB' }
+            ],
+            'entrepreneurship': [
+                { year: 2023, url: 'https://drive.google.com/open?id=1lsB-nnVQpYa8oiDy3JqtcPHsQtXnBSFP&usp=drive_copy', size: '1.4 MB' },
+                { year: 2021, url: 'https://drive.google.com/file/d/1MsEPDIvRIWpWevDqDUZTuWdfnrzGq_2/view', size: '1.3 MB' }
+            ],
+            'physics': [
+                { year: 2023, url: 'https://drive.google.com/open?id=1D2QvpI4xdFrQAQ5TaVD8t6eXDtPRALgD&usp=drive_copy', size: '1.4 MB' },
+                { year: 2021, url: 'https://drive.google.com/file/d/1-fJgNIu1DQP38zsMki5sWuKDmFvieN1w/view', size: '1.3 MB' }
+            ],
+            'chemistry': [
+                { year: 2023, url: 'https://drive.google.com/open?id=1XGVbbVTOZKkmMuXOm8cNkAXNt8Wdeta-&usp=drive_copy', size: '1.5 MB' },
+                { year: 2021, url: 'https://drive.google.com/file/d/16DrVd1oaEn6WmB1Kx7hc89exnANVh5Mp/view', size: '1.4 MB' }
+            ],
+            'software development': [
+                { year: 2023, url: 'https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86544&token=8b5255fed4e0e74b750dd39539bc5fc277c78c65', size: '1.2 MB' },
+                { year: 2021, url: 'https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86546&token=4a9d3d57830fc06e6abb3e5a15d5e418ba0f7aea', size: '1.2 MB' }
+            ],
+            'accounting': [
+                { year: 2023, url: 'https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86566&token=30651e158a63f122e70d204ec73f8c1a981809b0', size: '1.5 MB' },
+                { year: 2021, url: 'https://www.nesa.gov.rw/index.php?eID=dumpFile&t=f&f=86555&token=32eb461f75a19b6c95beeb4abc9f7681f7ff4336', size: '1.3 MB' }
+            ]
+        };
+
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+
+        function toggleChatbot() {
+            const isExpanded = chatbotWindow.classList.toggle('active');
+            chatbotToggle.setAttribute('aria-expanded', isExpanded);
+            if (isExpanded) chatbotInput.focus();
+        }
+
+        chatbotToggle.addEventListener('click', toggleChatbot);
+        chatbotClose.addEventListener('click', toggleChatbot);
+
+        function addMessage(content, isUser = false) {
+            const message = document.createElement('div');
+            message.className = isUser ? 'chatbot-user-message' : 'chatbot-bot-message';
+            message.innerHTML = isUser 
+                ? `<strong>You:</strong> ${content}`
+                : `<img src="clv.jpg" alt="Kageyo Assistant avatar" /><div class="message-content"><strong>Bot:</strong> ${content}</div>`;
+            chatbotMessages.appendChild(message);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        chatbotSend.addEventListener('click', () => {
+            const message = chatbotInput.value.trim().toLowerCase();
+            if (!message) return;
+
+            addMessage(message, true);
+            chatbotInput.value = '';
+
+            const loading = document.createElement('div');
+            loading.className = 'chatbot-bot-message';
+            loading.innerHTML = `<img src="clv.jpg" alt="Kageyo Assistant avatar" /><div class="message-content"><strong>Bot:</strong> Thinking...</div>`;
+            chatbotMessages.appendChild(loading);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+            setTimeout(() => {
+                loading.remove();
+                let response = 'Sorry, I didn’t get that. Try "search 2023" or "go to contact".';
+
+                if (message.startsWith('go to ')) {
+                    const page = message.replace('go to ', '').trim();
+                    const url = navigationMap[page] || navigationMap[Object.keys(navigationMap).find(k => k.includes(page))];
+                    if (url) {
+                        response = `Navigating to <a href="${url}" class="chatbot-link">${page}</a>!`;
+                        setTimeout(() => window.location.href = url, 1000);
+                    } else {
+                        response = 'Page not found. Try "trades" or "contact".';
+                    }
+                } else if (message.startsWith('search ')) {
+                    const query = message.replace('search ', '').trim();
+                    let found = false;
+                    Object.keys(resources).forEach(subject => {
+                        const matches = resources[subject].filter(r => r.year.toString() === query || query.includes(subject));
+                        if (matches.length) {
+                            found = true;
+                            response = `Found:<ul>${matches.map(r => `<li><a href="${r.url}" class="chatbot-link">${subject} S3 ${r.year}</a> (${r.size})</li>`).join('')}</ul>`;
+                        }
+                    });
+                    if (!found) response = `No results for "${query}". Try another year or subject.`;
+                } else {
+                    Object.keys(resources).forEach(subject => {
+                        if (message.includes(subject)) {
+                            const yearMatch = message.match(/\d{4}/);
+                            const year = yearMatch ? parseInt(yearMatch[0]) : null;
+                            const resource = year ? resources[subject].find(r => r.year === year) : null;
+                            if (resource) {
+                                response = `Here’s the <a href="${resource.url}" class="chatbot-link">${subject} S3 ${year}</a> past paper (${resource.size}).`;
+                            } else {
+                                response = `Check ${subject} S3 past papers above. Try "search ${subject}" or call 0788521465.`;
+                            }
+                        }
+                    });
+                }
+
+                addMessage(response);
+            }, 500);
+        });
+
+        chatbotInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') chatbotSend.click();
+        });
+    </script>
+</body>
+</html>

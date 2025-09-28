@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Kageyo TVET School is located in Gicumbi district, Kaniga sector near Kageyo tea factory and is a public TVET school">
+    <meta name="author" content="jobeuse| yobu| job| iradukunda">
+    <title>Kageyo TVET School | Gicumbi District | TVET School in Gicumbi</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="download.jpg">
+    <link rel="apple-touch-icon" sizes="180x180" href="">
+    <meta name="theme-color" content="#1D4ED8">
+
+    <style>
+        .hero-bg {
+            background-image: url('WEB_1.JPG');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .hero-overlay {
+            background-image: linear-gradient(to bottom, rgba(0,123,255,0), rgba(17, 0, 255, 0.9));
+        }
+        .dropdown-menu {
+            display: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                position: absolute;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 0.375rem;
+                min-width: 12rem;
+                top: 100%;
+                left: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .goal { display: block !important; }
+            #loader {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                transform: translate(-50%, -50%);
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: #f3f4f6;
+                width: 100%;
+                display: none;
+            }
+            .dropdown-menu.active {
+                display: block;
+            }
+        }
+        /* Accessibility styles */
+        :focus {
+            outline: 3px solid #1D4ED8;
+            outline-offset: 2px;
+        }
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+        /* Chatbot styles */
+        #chatbot-window {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 360px;
+            max-height: 480px;
+            background-color: #ffffff;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            z-index: 1000;
+            overflow: hidden;
+        }
+        #chatbot-window.active {
+            display: block;
+        }
+        #chatbot-messages {
+            height: 360px;
+            overflow-y: auto;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+        }
+        #chatbot-input {
+            width: 100%;
+            padding: 0.75rem;
+            border: none;
+            outline: none;
+            font-size: 1rem;
+        }
+        #chatbot-input:focus {
+            outline: 2px solid #1D4ED8;
+        }
+        #chatbot-header {
+            background-color: #1D4ED8;
+            color: white;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .chatbot-user-message {
+            background-color: #e3f2fd;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+            max-width: 80%;
+            align-self: flex-end;
+        }
+        .chatbot-bot-message {
+            background-color: #f3f4f6;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+            max-width: 80%;
+            display: flex;
+            align-items: flex-start;
+        }
+        .chatbot-bot-message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #1D4ED8;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+        .chatbot-bot-message .message-content {
+            flex-grow: 1;
+        }
+        .chatbot-link {
+            color: #1D4ED8;
+            text-decoration: underline;
+        }
+        /* Language selector styles */
+        #language-selector {
+            padding: 0.5rem;
+            border-radius: 0.25rem;
+            background-color: #f3f4f6;
+            margin: 0.5rem;
+            font-size: 0.9rem;
+        }
+        /* Trade Card Styles */
+        .trade-card:hover {
+            transform: translateY(-5px);
+            transition: transform 0.3s ease;
+        }
+        /* Promotional Section Styles */
+        .promo-bg {
+            background-image: url('WEB_1.JPG');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .promo-overlay {
+            background: rgba(29, 78, 216, 0.8);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        /* Footer Background Styles */
+        .footer-bg {
+            background-image: url('WEB_1.JPG');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .footer-overlay {
+            background: rgba(29, 78, 216, 0.9);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        /* Achievements Section Styles */
+        .achievement-card {
+            background-color: #1D4ED8;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+        .achievement-card:hover {
+            transform: translateY(-5px);
+        }
+        .achievement-card h3 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .achievement-card p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-roboto" onload="myFunction()">
+    <!-- Header -->
+    <header class="bg-white shadow" role="banner">
+        <div class="bg-blue-600 text-white py-2">
+            <div class="container mx-auto px-4 flex justify-end">
+                <a href="https://wa.me/1234567890" target="_blank" class="hover:underline" aria-label="Join Kageyo TVET School WhatsApp Group">
+                    <i class="fab fa-whatsapp mr-2" aria-hidden="true"></i>Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-wrap items-center justify-between" role="navigation" aria-label="Main navigation">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" aria-label="Kageyo TVET School Home">
+                        <img src="logo.jpg" alt="Kageyo TVET School Logo" class="w-20 h-20">
+                    </a>
+                    <div>
+                        <h1>
+                            <a href="index.html" class="text-2xl font-bold text-blue-600">KAGEYO TVET SCHOOL</a>
+                        </h1>
+                        <p class="text-sm text-gray-500">WORK - COURAGE - SOLIDARITY</p>
+                    </div>
+                </div>
+                                                <div class="flex items-center space-x-2 md:hidden">
+                                                    <button class="text-blue-600" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar" onclick="toggleNav()">
+                                                            <i class="fas fa-bars" aria-hidden="true"></i>
+                                                            <span class="sr-only">Toggle menu</span>
+                                                    </button>
+                                                    <a href="student-management.html" aria-label="Student Data" class="hover:opacity-80">
+                                                        <img src="menu-icon.png" alt="Student Data Menu Icon" style="width:32px;height:32px;object-fit:contain;" />
+                                                    </a>
+                                                </div>
+                <div id="navbar" class="hidden md:flex md:items-center w-full md:w-auto mt-4 md:mt-0" role="menu">
+                    <ul class="flex flex-col md:flex-row md:space-x-6 w-full md:w-auto">
+                        <li><a href="index.html" class="block py-2 text-blue-600 hover:text-blue-800" role="menuitem">Home</a></li>
+                        <li><a href="about.html" class="block py-2 text-blue-600 hover:text-blue-800" role="menuitem">About Us</a></li>
+                        <li><a href="apply job.html" class="block py-2 text-blue-600 hover:text-blue-800" role="menuitem">Apply for a Job</a></li>
+                        <!-- Removed Student Data from mobile menu list -->
+                        <li class="relative dropdown">
+                            <button class="block py-2 text-blue-600 hover:text-blue-800 flex items-center" aria-expanded="false" aria-controls="admin-menu" onclick="toggleDropdown('admin-menu')" role="menuitem">
+                                Administration <i class="fas fa-chevron-down ml-2" aria-hidden="true"></i>
+                                <span class="sr-only">Toggle Administration submenu</span>
+                            </button>
+                            <ul id="admin-menu" class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10" role="menu" aria-labelledby="administration-button">
+                                <li><a href="staff.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Staff</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="trainers.html" class="block py-2 text-blue-600 hover:text-blue-800" role="menuitem">Trainers</a></li>
+                        <li><a href="trades.html" class="block py-2 text-blue-600 hover:text-blue-800" role="menuitem">Trades</a></li>
+                        <li class="relative dropdown">
+                            <button class="block py-2 text-blue-600 hover:text-blue-800 flex items-center" aria-expanded="false" aria-controls="more-menu" onclick="toggleDropdown('more-menu')" role="menuitem">
+                                More <i class="fas fa-chevron-down ml-2" aria-hidden="true"></i>
+                                <span class="sr-only">Toggle More submenu</span>
+                            </button>
+                            <ul id="more-menu" class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10" role="menu" aria-labelledby="more-button">
+                                <li><a href="news.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">News</a></li>
+                                <li><a href="events.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Events</a></li>
+                                <li><a href="announcements.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Announcements</a></li>
+                                <li><a href="best-performers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Best Performers</a></li>
+                                <li><a href="head-teacher.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Head Teacher</a></li>
+                                <li><a href="student-papers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Student Papers</a></li>
+                                <li><a href="pastpapers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Past Papers</a></li>
+                                <li><a href="employee-of-the-year.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Employee of the Year</a></li>
+                                <li><a href="forum.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Forum</a></li>
+                                <li><a href="developers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Developers</a></li>
+                                <li><a href="student-projects.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100" role="menuitem">Student Projects</a></li>
+                                <!-- Removed Student Data from More dropdown -->
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="block py-2 text-blue-600 hover:text-blue-800" role="menuitem">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="hero-bg h-96 flex items-center justify-center text-center hero-overlay" role="region" aria-label="Hero section with quote">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-white mb-4">"Education is the most powerful weapon which you can use to change the world."</h2>
+                <blockquote class="text-white">
+                    <p>- Nelson Mandela, President of South Africa and political activist</p>
+                </blockquote>
+            </div>
+        </div>
+    </header>
+
+    <main role="main">
+        <section class="py-12 bg-white" aria-label="Vision, Mission, and Core Values">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <article class="bg-gray-50 p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-bold text-blue-600 mb-2">Vision</h2>
+                        <p class="text-gray-700">To be a center of excellence in developing human resources needed by the dynamic economy.</p>
+                    </article>
+                    <article class="bg-gray-50 p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-bold text-blue-600 mb-2">Mission</h2>
+                        <p class="text-gray-700">To provide competence-based training for national and international development to enhance competitiveness and employability.</p>
+                    </article>
+                    <article class="bg-gray-50 p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-bold text-blue-600 mb-2">Core Values</h2>
+                        <ul class="list-disc pl-5 text-gray-700">
+                            <li>Customer Care</li>
+                            <li>Result-based Performance</li>
+                            <li>Professionalism</li>
+                            <li>Integrity</li>
+                            <li>Transparency</li>
+                            <li>Accountability</li>
+                        </ul>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section class="py-12 bg-gray-100" aria-label="Our Achievements">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Our Achievements</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="achievement-card">
+                        <h3>4500</h3>
+                        <p>Happy Parents</p>
+                    </div>
+                    <div class="achievement-card">
+                        <h3>18</h3>
+                        <p>Total Courses</p>
+                    </div>
+                    <div class="achievement-card">
+                        <h3>45</h3>
+                        <p>Professional Teachers</p>
+                    </div>
+                    <div class="achievement-card">
+                        <h3>700</h3>
+                        <p>Active Students</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Course/Trade Preview Section -->
+        <section class="py-12 bg-gray-100" aria-label="Explore Our Trades">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-blue-600 mb-6 text-center">Explore Our Trades</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition trade-card">
+                        <img src="sod.jpg" alt="Software Development Trade" class="w-full h-40 object-cover rounded-t-lg mb-4">
+                        <h3 class="text-xl font-bold text-blue-600">Software Development</h3>
+                        <p class="text-gray-700">Learn coding, app development, and problem-solving.</p>
+                        <a href="trades.html#software" class="inline-block mt-4 text-blue-600 hover:underline" aria-label="Learn more about Software Development">Learn More</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition trade-card">
+                        <img src="ac.jpg" alt="Accounting Trade" class="w-full h-40 object-cover rounded-t-lg mb-4">
+                        <h3 class="text-xl font-bold text-blue-600">Accounting</h3>
+                        <p class="text-gray-700">Master financial management and bookkeeping.</p>
+                        <a href="trades.html#accounting" class="inline-block mt-4 text-blue-600 hover:underline" aria-label="Learn more about Accounting">Learn More</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition trade-card">
+                        <img src="nit.jpg" alt="Networking and IT Trade" class="w-full h-40 object-cover rounded-t-lg mb-4">
+                        <h3 class="text-xl font-bold text-blue-600">Networking & IT</h3>
+                        <p class="text-gray-700">Build IT infrastructure and cybersecurity skills.</p>
+                        <a href="trades.html#networking" class="inline-block mt-4 text-blue-600 hover:underline" aria-label="Learn more about Networking and IT">Learn More</a>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow hover:shadow-lg transition trade-card">
+                        <img src="csa.jpg" alt="Computer Systems Trade" class="w-full h-40 object-cover rounded-t-lg mb-4">
+                        <h3 class="text-xl font-bold text-blue-600">Computer Systems</h3>
+                        <p class="text-gray-700">Explore hardware and system design.</p>
+                        <a href="trades.html#computer" class="inline-block mt-4 text-blue-600 hover:underline" aria-label="Learn more about Computer Systems">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- New Promotional Section -->
+        <section class="py-12 promo-bg relative" aria-label="Join Kageyo TVET School">
+            <div class="promo-overlay"></div>
+            <div class="container mx-auto px-4 relative z-10 text-center text-white">
+                <h2 class="text-3xl font-bold mb-4">Launch Your Future at Kageyo TVET School!</h2>
+                <p class="text-lg mb-6 max-w-2xl mx-auto">Join our vibrant community and gain in-demand skills in Software Development, Accounting, Networking & IT, or Computer Systems. With hands-on training, career guidance, and affordable fees (~300,000 RWF/year), Kageyo prepares you for a successful career. Enroll by July 15, 2025!</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+                    <div class="bg-white text-blue-900 p-4 rounded-lg shadow">
+                        <h3 class="font-bold text-lg">Top-Notch Training</h3>
+                        <p class="text-sm">Learn from expert trainers in state-of-the-art facilities.</p>
+                    </div>
+                    <div class="bg-white text-blue-900 p-4 rounded-lg shadow">
+                        <h3 class="font-bold text-lg">Career Support</h3>
+                        <p class="text-sm">Access workshops and job placement assistance.</p>
+                    </div>
+                    <div class="bg-white text-blue-900 p-4 rounded-lg shadow">
+                        <h3 class="font-bold text-lg">Community & Clubs</h3>
+                        <p class="text-sm">Join Tech Club, Sports, or Cultural Groups.</p>
+                    </div>
+                </div>
+                <a href="apply job.html" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition" aria-label="Start your application to join Kageyo TVET School">Apply Now!</a>
+                <p class="mt-4 text-sm">Need help? Contact us at <a href="tel:0738266603" class="underline hover:text-blue-300">0738266603</a> or join our <a href="https://wa.me/1234567890" class="underline hover:text-blue-300" target="_blank">WhatsApp group</a>.</p>
+            </div>
+        </section>
+
+        <section class="py-12" aria-label="Overall Goals">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row items-center">
+                    <div class="md:w-1/3 bg-blue-900 p-6 text-center goal relative">
+                        <div class="absolute inset-0 bg-white opacity-90 flex items-center justify-center">
+                            <i class="fa-solid fa-bullseye text-blue-600" style="font-size: 150px;" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="md:w-2/3 p-6 text-center md:text-left">
+                        <h2 class="text-3xl font-bold text-blue-600 mb-4">Overall Goals</h2>
+                        <ul class="list-none text-gray-700 space-y-4">
+                            <li><i class="fa fa-check text-blue-600 mr-2" aria-hidden="true"></i>To develop professional, technical, and human resource skills and create opportunities for high quality.</li>
+                            <li><i class="fa fa-check text-blue-600 mr-2" aria-hidden="true"></i>To develop core skills: <em>Communication skills, teamwork, and problem-solving.</em></li>
+                            <li><i class="fa fa-check text-blue-600 mr-2" aria-hidden="true"></i>To provide career guidance and counseling as young women and men move into the labor market.</li>
+                            <li><i class="fa fa-check text-blue-600 mr-2" aria-hidden="true"></i>To offer workers opportunities for continuous learning to upgrade their competences and learn new skills.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 bg-white" aria-label="News, Events, Announcements, and More">
+            <div class="container mx-auto px-4">
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-2/3">
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold text-blue-600">Latest News</h2>
+                                <a href="news.html" class="text-blue-600 hover:underline" aria-label="View all news articles">View All News</a>
+                            </div>
+                            <hr>
+                            <div class="mt-4">
+                                <div class="flex items-center space-x-4">
+                                    <a href="news.html" class="block w-1/3 h-40 bg-cover bg-center" style="background-image: url('cel.jpg');" aria-label="Read more about Kageyo TVET 25th Anniversary Celebration">
+                                        <span class="sr-only">Kageyo TVET 25th Anniversary Celebration</span>
+                                    </a>
+                                    <div class="w-2/3">
+                                        <h3 class="font-bold"><a href="news.html" class="text-gray-700 hover:text-blue-600">Kageyo TVET 25th Anniversary Celebration</a></h3>
+                                        <p class="text-gray-500 text-sm">3 minutes ago - By <span>Admin</span></p>
+                                        <a href="news.html" class="inline-block mt-2 text-blue-600 hover:underline" aria-label="Read more about Kageyo TVET 25th Anniversary Celebration">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <div class="flex justify-between items-center mb-4">
+                                <h2 class="text-xl font-bold text-blue-600">Upcoming Events</h2>
+                                <a href="events.html" class="text-blue-600 hover:underline" aria-label="View all upcoming events">View All Events</a>
+                            </div>
+                            <hr>
+                            <div class="mt-4">
+                                <div class="flex items-center space-x-4">
+                                    <a href="events.html" class="block w-1/3 h-40 bg-cover bg-center" style="background-image: url('at.jpg');" aria-label="Read more about Athletism Competition">
+                                        <span class="sr-only">Athletism Competition</span>
+                                    </a>
+                                    <div class="w-2/3">
+                                        <h3 class="font-bold"><a href="events.html" class="text-gray-700 hover:text-blue-600">Athletism Competition</a></h3>
+                                        <p class="text-gray-500 text-sm">
+                                            <i class="fas fa-clock mr-1" aria-hidden="true"></i>10:32<br>
+                                            <i class="fas fa-map-marker-alt mr-1" aria-hidden="true"></i>Gicumbi Stadium<br>
+                                            <i class="fas fa-calendar mr-1" aria-hidden="true"></i>2022-05-29
+                                        </p>
+                                        <a href="events.html" class="inline-block mt-2 text-blue-600 hover:underline" aria-label="Read more about Athletism Competition">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <div class="mb-4">
+                                <h2 class="text-xl font-bold text-blue-600">Announcements</h2>
+                            </div>
+                            <hr>
+                            <div class="mt-4" lang="rw">
+                                <h3 class="font-bold">Itangazo</h3>
+                                <p>Ubuyobozi bwa Kageyo Technical Secondary School buramenyesha ababyeyi baharerera ko gusura abana bitemewe muri ibi bihe byo kwirinda COVID-19.</p>
+                                <p><em>Done by: Ayinkamiye Domitille</em></p>
+                                <p class="text-gray-500 text-sm">3 years ago</p>
+                            </div>
+                        </article>
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <h2 class="text-xl font-bold text-blue-600 mb-4">Best Performers</h2>
+                            <hr>
+                            <div class="text-center mb-4">
+                                <h3 class="font-bold">National Examination</h3>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="bg-white rounded-lg shadow">
+                                    <img src="ny.jpg" alt="Portrait of Nyandwi Emmanuel, a top performer in Accounting and Finance" class="w-full h-64 object-cover rounded-t-lg">
+                                    <div class="p-4">
+                                        <h3 class="font-bold">Nyandwi Emmanuel</h3>
+                                        <p>Score: 60</p>
+                                        <p class="text-gray-600">Accounting & Finance</p>
+                                        <span class="inline-block bg-blue-600 text-white px-2 py-1 rounded">National Examination</span>
+                                    </div>
+                                </div>
+                                <div class="bg-white rounded-lg shadow">
+                                    <img src="clv.jpg" alt="Portrait of Shyaka Clever Prince, a top performer in Software Development" class="w-full h-64 object-cover rounded-t-lg">
+                                    <div class="p-4">
+                                        <h3 class="font-bold">Shyaka Clever Prince</h3>
+                                        <p>Score: 59</p>
+                                        <p class="text-gray-600">Software Development</p>
+                                        <span class="inline-block bg-blue-600 text-white px-2 py-1 rounded">National Examination</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <h2 class="text-xl font-bold text-blue-600 mb-4">Student Papers</h2>
+                            <hr>
+                            <div class="mt-4">
+                                <h3 class="font-bold">Babyeyi</h3>
+                                <p>BABYEYI-ABANYESHURI BASHYA.pdf</p>
+                                <a href="AMABWIRIZA-09142022150053.pdf" download class="inline-block text-blue-600 hover:underline" aria-label="Download Babyeyi-Abanyeshuri Bashya PDF">Download PDF</a>
+                                <p>Requirements for new students in Level 3 Software Development, Networking and Internet Technology, Computer System and Architecture, and Accounting</p>
+                                <p class="text-gray-500 text-sm">2 years ago</p>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="md:w-1/3">
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <h2 class="text-xl font-bold text-blue-600 text-center mb-4">Head Teacher</h2>
+                            <hr>
+                            <img src="13.jpg" alt="Portrait of Ayinkamiye Domitille, Head Teacher" class="w-full h-64 object-cover rounded-lg mb-4">
+                            <div>
+                                <h3 class="font-bold">Names:</h3>
+                                <p class="text-gray-700">Ayinkamiye Domitille</p>
+                                <h3 class="font-bold mt-2">Department:</h3>
+                                <p class="text-gray-700">Business</p>
+                                <h3 class="font-bold mt-2">Phone:</h3>
+                                <p class="text-gray-700">0788521465</p>
+                                <hr>
+                                <p class="text-gray-700">She has been the school manager at Kageyo TVET School since 2014.</p>
+                            </div>
+                        </article>
+                        <article class="bg-gray-50 p-6 rounded-lg shadow mb-6">
+                            <h2 class="text-xl font-bold text-blue-600 text-center mb-4">Employee of the Year</h2>
+                            <hr>
+                            <img src="remy.jpg" alt="Portrait of Ntwali Remy, Employee of the Year" class="w-full h-64 object-cover rounded-lg mb-4">
+                            <div>
+                                <h3 class="font-bold">Names:</h3>
+                                <p class="text-gray-700">Ntwali Remy</p>
+                                <h3 class="font-bold mt-2">Qualification:</h3>
+                                <p class="text-gray-700">A0</p>
+                                <h3 class="font-bold mt-2">Title:</h3>
+                                <p class="text-gray-700">Website Development Trainer</p>
+                                <hr>
+                                <p class="text-gray-700">Best employee in the year 2023-2024 at Kageyo TVET School.</p>
+                            </div>
+                        </article>
+                        <article class="bg-blue-50 p-6 rounded-lg shadow mb-6">
+                            <h2 class="text-xl font-bold text-blue-600 text-center mb-4">Kageyo overview</h2>
+                            <hr>
+                            <div class="relative" style="padding-bottom: 56.25%;">
+                                <iframe src="https://www.youtube.com/shorts/ag2D-F1spsA?feature=share" title="Kageyo TVET School Promotional Video" class="absolute top-0 left-0 w-full h-full rounded-lg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            <div class="mt-4">
+                                <p class="text-gray-700">Discover the vibrant learning environment at Kageyo TVET School through our promotional video, showcasing our trades, facilities, and community.</p>
+                                <a href="trades.html" class="inline-block mt-2 text-blue-600 hover:underline" aria-label="Explore our trades">Explore Our Trades</a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Student Data Preview Section removed -->
+        </script>
+        </main>
+
+    <footer class="footer-bg text-white py-12 relative" role="contentinfo">
+        <div class="footer-overlay"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h2><a href="index.html" class="text-2xl font-bold" aria-label="Kageyo TVET School Home">Kageyo TVET School</a></h2>
+                    <p class="mt-2">Work - Courage - Solidarity</p>
+                    <p class="mt-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector
+                    </p>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Useful Links</h2>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:underline" aria-label="Go to Home page">Home</a></li>
+                        <li><a href="about.html" class="hover:underline" aria-label="Go to About Us page">About Us</a></li>
+                        <li><a href="news.html" class="hover:underline" aria-label="Go to News page">News</a></li>
+                        <li><a href="trades.html" class="hover:underline" aria-label="Go to Trades page">Trades</a></li>
+                        <li><a href="contact.html" class="hover:underline" aria-label="Go to Contact page">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h2 class="text-xl font-bold mb-4">Information</h2>
+                    <ul class="space-y-2">
+                        <li><a href="developers.html" class="hover:underline" aria-label="Go to Developers page">Developers</a></li>
+                        <li><a href="student-projects.html" class="hover:underline" aria-label="Go to Student Projects page">Student Projects</a></li>
+                    </ul>
+                </div>
+                <div class="space-y-4">
+                    <h2 class="text-xl font-bold mb-4">Location</h2>
+                    <img src="kt.jpg" alt="Kageyo TVET School location near Kageyo sector office" class="w-full max-w-[300px] h-[200px] object-cover rounded-lg mb-4">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.329223456789!2d30.119!3d-1.678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMWHCrDQwJzQwLjgiUyAzMMKwMDcnMTYuNCJF!5e0!3m2!1sen!2srw!4v1739898299999!5m2!1sen!2srw" width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy" aria-label="Map showing Kageyo TVET School location" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <a href="https://www.google.com/maps/@-1.678,30.121,15z" target="_blank" class="text-blue-300 hover:underline" aria-label="View larger map of Kageyo TVET School location">View Larger Map</a>
+                    <p class="space-y-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector<br>
+                        Near Kageyo Tea Factory<br>
+                        <a href="tel:0788521465" class="hover:underline">Phone: 0788521465</a>
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© Kageyo TVET School 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scroll to Top Button -->
+    <section id="scroll-top" class="fixed bottom-4 right-4 hidden">
+        <button class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700" aria-label="Scroll to top of page">
+            <i class="fas fa-arrow-up" aria-hidden="true"></i>
+        </button>
+    </section>
+
+    <!-- Chatbot Button and Window -->
+    <section id="chatbot" class="fixed bottom-4 right-16">
+        <button id="chatbot-toggle" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700" aria-label="Toggle chat window" aria-expanded="false" aria-controls="chatbot-window">
+            <i class="fas fa-comment-dots" aria-hidden="true"></i>
+            <span class="sr-only">Open chat</span>
+        </button>
+        <div id="chatbot-window" role="dialog" aria-label="Chat with Kageyo TVET School assistant">
+            <div id="chatbot-header">
+                <span>Kageyo Assistant online</span>
+                <button id="chatbot-close" class="text-white hover:text-gray-200" aria-label="Close chat window">
+                    <i class="fas fa-times" aria-hidden="true"></i>
+                </button>
+            </div>
+            <select id="language-selector" aria-label="Select language for chatbot">
+                <option value="en">English</option>
+                <option value="rw">Kinyarwanda</option>
+                <option value="fr">Français</option>
+            </select>
+            <div id="chatbot-messages" aria-live="polite">
+                <div class="chatbot-bot-message">
+                    <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                    <div class="message-content">Hi there! I’m super excited to help with any questions about Kageyo TVET School. Ask about job salaries, school fees, registration, or say 'search [topic]' (e.g., 'search software development')!</div>
+                </div>
+            </div>
+            <div class="p-2">
+                <input id="chatbot-input" type="text" placeholder="Share your question or worry, I’m all ears!" aria-label="Type your question or concern">
+                <button id="chatbot-send" class="bg-blue-600 text-white px-4 py-2 mt-2 rounded hover:bg-blue-700" aria-label="Send message">Send</button>
+            </div>
+        </div>
+    </section>
+
+    <div id="loader" class="text-center" aria-live="polite">Loading site</div>
+
+    <script>
+        // Page load and navigation functions
+        function myFunction() {
+            setTimeout(showPage, 3000);
+        }
+
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("scroll-top").style.display = "block";
+        }
+
+        function toggleNav() {
+            const nav = document.getElementById("navbar");
+            const button = document.querySelector("button[aria-controls='navbar']");
+            const isExpanded = nav.classList.toggle("hidden");
+            button.setAttribute("aria-expanded", !isExpanded);
+        }
+
+        function toggleDropdown(menuId) {
+            const menu = document.getElementById(menuId);
+            const button = document.querySelector(`button[aria-controls="${menuId}"]`);
+            const isExpanded = menu.classList.toggle("active");
+            button.setAttribute("aria-expanded", isExpanded);
+        }
+
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const button = dropdown.querySelector('button');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            let timeout;
+
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    toggleDropdown(menu.id);
+                }
+            });
+
+            if (window.innerWidth > 768) {
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    menu.classList.add('active');
+                    button.setAttribute('aria-expanded', 'true');
+                });
+
+                dropdown.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                        button.setAttribute('aria-expanded', 'false');
+                    }, 200);
+                });
+
+                menu.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                });
+
+                menu.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                        button.setAttribute('aria-expanded', 'false');
+                    }, 200);
+                });
+            }
+
+            button.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggleDropdown(menu.id);
+                }
+            });
+        });
+
+        document.querySelector('#scroll-top button').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Navigation map for page navigation
+        const navigationMap = {
+            'home': { url: 'index.html', name: 'Home' },
+            'about': { url: 'about.html', name: 'About Us' },
+            'about us': { url: 'about.html', name: 'About Us' },
+            'apply': { url: 'apply job.html', name: 'Apply for a Job' },
+            'apply for a job': { url: 'apply job.html', name: 'Apply for a Job' },
+            'job': { url: 'apply job.html', name: 'Apply for a Job' },
+            'administration': { url: 'staff.html', name: 'Staff' },
+            'staff': { url: 'staff.html', name: 'Staff' },
+            'trainers': { url: 'trainers.html', name: 'Trainers' },
+            'trades': { url: 'trades.html', name: 'Trades' },
+            'news': { url: 'news.html', name: 'News' },
+            'events': { url: 'events.html', name: 'Events' },
+            'announcements': { url: 'announcements.html', name: 'Announcements' },
+            'best performers': { url: 'best-performers.html', name: 'Best Performers' },
+            'head teacher': { url: 'head-teacher.html', name: 'Head Teacher' },
+            'student papers': { url: 'student-papers.html', name: 'Student Papers' },
+            'past papers': { url: 'pastpapers.html', name: 'Past Papers' },
+            'employee of the year': { url: 'employee-of-the-year.html', name: 'Employee of the Year' },
+            'forum': { url: 'forum.html', name: 'Forum' },
+            'developers': { url: 'developers.html', name: 'Developers' },
+            'student projects': { url: 'student-projects.html', name: 'Student Projects' },
+            'contact': { url: 'contact.html', name: 'Contact' }
+        };
+
+        // Website content index for search
+        const websiteContentIndex = [
+            {
+                keywords: ['software development', 'coding', 'app development', 'informatique', 'développement logiciel', 'kodingi'],
+                page: 'trades',
+                snippet: {
+                    en: 'Learn coding, app development, and problem-solving in Software Development.',
+                    rw: 'Yiga gukora porogaramu, gutunganya porogaramu, no gukemura ibibazo muri Software Development.',
+                    fr: 'Apprenez le codage, le développement d’applications et la résolution de problèmes en développement logiciel.'
+                }
+            },
+            {
+                keywords: ['accounting', 'finance', 'bookkeeping', 'comptabilité', 'kontabirite'],
+                page: 'trades',
+                snippet: {
+                    en: 'Master financial management and bookkeeping in Accounting.',
+                    rw: 'Yiga gucunga amafaranga no kubika amakonte muri Kontabirite.',
+                    fr: 'Maîtrisez la gestion financière et la comptabilité.'
+                }
+            },
+            {
+                keywords: ['networking', 'it', 'cybersecurity', 'réseaux', 'cybersecurité', 'ikoranabuhanga'],
+                page: 'trades',
+                snippet: {
+                    en: 'Build IT infrastructure and cybersecurity skills in Networking and IT.',
+                    rw: 'Yiga kubaka sisitemu y’ikoranabuhanga n’ubushobozi bwo kurinda amakuru muri Networking na IT.',
+                    fr: 'Développez des compétences en infrastructure informatique et cybersécurité.'
+                }
+            },
+            {
+                keywords: ['computer systems', 'hardware', 'system design', 'systèmes informatiques', 'sistemu ya mudasobwa'],
+                page: 'trades',
+                snippet: {
+                    en: 'Explore hardware and system design in Computer Systems.',
+                    rw: 'Yiga ibikoresho bya mudasobwa no gutunganya sisitemu muri Computer Systems.',
+                    fr: 'Explorez le matériel et la conception de systèmes informatiques.'
+                }
+            },
+            {
+                keywords: ['fees', 'cost', 'student payment', 'scholarship', 'frais', 'amafaranga', 'ubufasha'],
+                page: 'student-papers',
+                snippet: {
+                    en: 'Annual fees: ~300,000 RWF, payable in two 150,000 RWF installments. Scholarships available.',
+                    rw: 'Amafaranga y’ishuri: ~300,000 RWF / umwaka, yishyurwa mu bice 2 bya 150,000 RWF. Ubufasha buriho.',
+                    fr: 'Frais annuels : ~300 000 RWF, payables en deux versements de 150 000 RWF. Bourses disponibles.'
+                }
+            },
+            {
+                keywords: ['job', 'apply', 'employment', 'salary', 'emploi', 'akazi', 'umushahara'],
+                page: 'apply job',
+                snippet: {
+                    en: 'Hiring trainers for Networking, Software Development, Teachers. Salaries: ~500,000–1,200,000 RWF/year.',
+                    rw: 'Turimo guha akazi abatoza muri Networking, Software Development, n’Abigisha. Umushahara: ~500,000–1,200,000 RWF / umwaka.',
+                    fr: 'Recrutement de formateurs pour réseaux, développement logiciel, enseignants. Salaires : ~500 000–1 200 000 RWF/an.'
+                }
+            },
+            {
+                keywords: ['student registration', 'join kageyo', 'enroll', 'admission', 'inscription', 'kwiyandikisha'],
+                page: 'student-papers',
+                snippet: {
+                    en: 'Join Kageyo by July 15, 2025, with application form, ID, transcripts, and first-term payment (~150,000 RWF).',
+                    rw: 'Injira muri Kageyo bya 15 Nyakanga 2025, na fomu yo kwiyandikisha, indangamuntu, transikiri, n’amafaranga ya term 1 (~150,000 RWF).',
+                    fr: 'Inscrivez-vous à Kageyo avant le 15 juillet 2025 avec formulaire, pièce d’identité, relevés et paiement du premier trimestre (~150 000 RWF).'
+                }
+            },
+            {
+                keywords: ['events', 'competition', 'athletics', 'événements', 'imikino'],
+                page: 'events',
+                snippet: {
+                    en: 'Join the Athletics event on July 10, 2025, at Gicumbi District.',
+                    rw: 'Kora imikino ya 10 Nyakanga 2025 muri Distrika ya Gicumbi.',
+                    fr: 'Participez à l’événement d’athlétisme le 10 juillet 2025 dans le district de Gicumbi.'
+                }
+            },
+            {
+                keywords: ['news', 'anniversary', 'nouvelles', 'amakuru'],
+                page: 'news',
+                snippet: {
+                    en: 'Celebrate Kageyo TVET’s 25th Anniversary on May 20, 2025.',
+                    rw: 'Izuka isabukuru y’imyaka 25 ya Kageyo TVET ku wa 20 Gicurasi 2025.',
+                    fr: 'Célébrez le 25e anniversaire de Kageyo TVET le 20 mai 2025.'
+                }
+            },
+            {
+                keywords: ['announcements', 'covid', 'guidelines', 'itangazo', 'directives'],
+                page: 'announcements',
+                snippet: {
+                    en: 'COVID guidelines for parents, updated by Ayinkamiye Domitille.',
+                    rw: 'Amabwiriza ya COVID ku babyeyi, yavuguruwe na Ayinkamiye Domitille.',
+                    fr: 'Directives COVID pour les parents, mises à jour par Ayinkamiye Domitille.'
+                }
+            },
+            {
+                keywords: ['head teacher', 'ayink', 'teacher', 'umuyobozi', 'directeur'],
+                page: 'head-teacher',
+                snippet: {
+                    en: 'Ayinkamiye Domitille, Head Teacher since 2014.',
+                    rw: 'Ayinkamiye Domitille, Umuyobozi w’ishuri kuva 2014.',
+                    fr: 'Ayinkamiye Domitille, directrice depuis 2014.'
+                }
+            },
+            {
+                keywords: ['employee awards', 'best teacher', 'umukozi w’umwaka', 'meilleur employé'],
+                page: 'employee-of-the-year',
+                snippet: {
+                    en: 'Ntwali Remy, Best Employee 2023-2024.',
+                    rw: 'Ntwali Remy, Umukozi w’Umwaka 2023-2024.',
+                    fr: 'Ntwali Remy, meilleur employé 2023-2024.'
+                }
+            },
+            {
+                keywords: ['best performers', 'students', 'top students', 'abanyeshuri beza', 'meilleurs étudiants'],
+                page: 'best-performers',
+                snippet: {
+                    en: 'Top students: Emmanuel (Accounting, 60), Shyaka (Software, 59).',
+                    rw: 'Abanyeshuri beza: Emmanuel (Kontabirite, 60), Shyaka (Software, 59).',
+                    fr: 'Meilleurs étudiants : Emmanuel (Comptabilité, 60), Shyaka (Développement logiciel, 59).'
+                }
+            },
+            {
+                keywords: ['accommodation', 'housing', 'dorm', 'stay', 'logement', 'ubukode'],
+                page: 'contact',
+                snippet: {
+                    en: 'On-campus housing: ~100,000 RWF/year. Nearby rentals: ~50,000–100,000 RWF/month.',
+                    rw: 'Ubukode mu ishuri: ~100,000 RWF / umwaka. Ubukode hafi: ~50,000–100,000 RWF / ukwezi.',
+                    fr: 'Logement sur campus : ~100 000 RWF/an. Locations à proximité : ~50 000–100 000 RWF/mois.'
+                }
+            },
+            {
+                keywords: ['activities', 'clubs', 'sports', 'activités', 'imikino'],
+                page: 'events',
+                snippet: {
+                    en: 'Join tech, accounting, or cultural clubs. See upcoming activities.',
+                    rw: 'Injira mu makirabu ya tekinoloji, kontabirite, cyangwa umuco. Reba ibikorwa bizaza.',
+                    fr: 'Rejoignez les clubs de technologie, comptabilité ou culture. Consultez les activités à venir.'
+                }
+            },
+            {
+                keywords: ['past papers', 'exam papers', 'previous exams', 'amapapuro y’ikizamini', 'examens passés'],
+                page: 'pastpapers',
+                snippet: {
+                    en: 'Access past examination papers for Software Development, Accounting, Networking, and Computer Systems.',
+                    rw: 'Shaka amapapuro y’ikizamini yabanjye ya Software Development, Kontabirite, Networking, na Computer Systems.',
+                    fr: 'Accédez aux anciens examens pour le développement logiciel, la comptabilité, les réseaux et les systèmes informatiques.'
+                }
+            }
+        ];
+
+        // Multilingual response templates
+        const translations = {
+            en: {
+                welcome: "Hi there! I’m excited to help with any questions about Kageyo TVET School. Ask about fees, trades, registration, or say 'search [topic]' (e.g., 'search software development')!",
+                help: "I can:\n- Answer questions about fees, jobs, or trades.\n- Navigate with 'go to [page]' (e.g., 'go to news').\n- Search with 'search [topic]'.\nWhat’s on your mind?",
+                notFound: "Oops, I couldn’t find that page or topic! Try 'news' or 'trades'. Need a list of pages?",
+                searchNoResults: "Hmm, I couldn’t find anything for '{query}'. Try another topic or ask about fees, trades, or events!",
+                loading: "Hang on, I’m finding the best answer for you!",
+                general: "Got a question? Try:\n- Events: Athletics, July 10, 2025 (<a href='events.html' class='chatbot-link'>Events</a>).\n- News: 25th Anniversary (<a href='news.html' class='chatbot-link'>News</a>).\n- Contact: Call 0738266603 or visit <a href='contact.html' class='chatbot-link'>Contact</a>.\nWhat’s up?"
+            },
+            rw: {
+                welcome: "Muraho! Nishimiye gufasha ibibazo bya Kageyo TVET School. Baza ku bijyanye n’amafaranga, amasomo, kwiyandikisha, cyangwa vuga 'search [insanganyamatsiko]' (urugero: 'search software development')!",
+                help: "Nshobora:\n- Gusubiza ibibazo ku mafaranga, akazi, cyangwa amasomo.\n- Kujya kuri paje na 'go to [paje]' (urugero: 'go to news').\n- Gushaka na 'search [insanganyamatsiko]'.\nUrikubaza iki?",
+                notFound: "Yampaye! Ntabwo nashoboye kubona iyo paje cyangwa insanganyamatsiko! Gerama 'news' cyangwa 'trades'. Ukeneye lisiti y’amapaje?",
+                searchNoResults: "Hmm, ntabwo nashoboye kubona ibyo kuri '{query}'. Gerama insanganyamatsiko nshya cyangwa baza ku mafaranga, amasomo, cyangwa ibikorwa!",
+                loading: "Rinda, ndangushaka igisubizo cyiza!",
+                general: "Ufite ikibazo? Gerama:\n- Ibikorwa: Imikino, 10 Nyakanga 2025 (<a href='events.html' class='chatbot-link'>Ibikorwa</a>).\n- Amakuru: Isabukuru y’imyaka 25 (<a href='news.html' class='chatbot-link'>Amakuru</a>).\n- Twandikire: Hamagara 0738266603 cyangwa sura <a href='contact.html' class='chatbot-link'>Twandikire</a>.\nWibaza iki?"
+            },
+            fr: {
+                welcome: "Bonjour ! Je suis ravi d’aider avec vos questions sur Kageyo TVET School. Demandez des infos sur les frais, les formations, l’inscription, ou dites 'search [sujet]' (ex. : 'search développement logiciel') !",
+                help: "Je peux :\n- Répondre à des questions sur les frais, emplois ou formations.\n- Naviguer avec 'go to [page]' (ex. : 'go to news').\n- Rechercher avec 'search [sujet]'.\nQu’est-ce qui vous préoccupe ?",
+                notFound: "Oups, je n’ai pas trouvé cette page ou ce sujet ! Essayez 'news' ou 'trades'. Besoin d’une liste des pages ?",
+                searchNoResults: "Hmm, je n’ai rien trouvé pour '{query}'. Essayez un autre sujet ou demandez des infos sur les frais, formations ou événements !",
+                loading: "Patientez, je cherche la meilleure réponse pour vous !",
+                general: "Une question ? Essayez :\n- Événements : Athlétisme, 10 juillet 2025 (<a href='events.html' class='chatbot-link'>Événements</a>).\n- Nouvelles : 25e anniversaire (<a href='news.html' class='chatbot-link'>Nouvelles</a>).\n- Contact : Appelez le 0738266603 ou visitez <a href='contact.html' class='chatbot-link'>Contact</a>.\nQuoi de neuf ?"
+            }
+        };
+
+        // Chatbot elements
+        const chatbotToggle = document.getElementById('chatbot-toggle');
+        const chatbotWindow = document.getElementById('chatbot-window');
+        const chatbotClose = document.getElementById('chatbot-close');
+        const chatbotSend = document.getElementById('chatbot-send');
+        const chatbotInput = document.getElementById('chatbot-input');
+        const chatbotMessages = document.getElementById('chatbot-messages');
+        const languageSelector = document.getElementById('language-selector');
+
+        // Language detection function
+        function detectLanguage(message) {
+            const lowerMessage = message.toLowerCase().trim();
+            const rwKeywords = ['muraho', 'amafaranga', 'akazi', 'kwiyandikisha', 'ubukode', 'amasomo'];
+            const frKeywords = ['bonjour', 'frais', 'emploi', 'inscription', 'logement', 'formation'];
+            if (rwKeywords.some(keyword => lowerMessage.includes(keyword))) return 'rw';
+            if (frKeywords.some(keyword => lowerMessage.includes(keyword))) return 'fr';
+            return languageSelector.value || 'en'; // Default to selected language or English
+        }
+
+        // Navigation handler
+        function handleNavigation(message, lang) {
+            const lowerMessage = message.toLowerCase().trim();
+            if (lowerMessage.startsWith('go to ')) {
+                const page = lowerMessage.replace('go to ', '').trim();
+                const navItem = navigationMap[page];
+                if (navItem) {
+                    return {
+                        action: 'navigate',
+                        url: navItem.url,
+                        page: navItem.name,
+                        message: translations[lang].welcome.includes('Hi there') 
+                            ? `Taking you to the <a href="${navItem.url}" class="chatbot-link">${navItem.name}</a> page!`
+                            : translations[lang].welcome.includes('Muraho')
+                            ? `Ngukujyana ku ipaje <a href="${navItem.url}" class="chatbot-link">${navItem.name}</a>!`
+                            : `Vous dirige vers la page <a href="${navItem.url}" class="chatbot-link">${navItem.name}</a> !`
+                    };
+                } else {
+                    return { action: 'message', message: translations[lang].notFound };
+                }
+            }
+            return null;
+        }
+
+        // Search website function
+        function searchWebsite(query, lang) {
+            const lowerQuery = query.toLowerCase().trim();
+            const results = [];
+            websiteContentIndex.forEach(item => {
+                if (item.keywords.some(keyword => lowerQuery.includes(keyword))) {
+                    const pageInfo = navigationMap[item.page];
+                    if (pageInfo) {
+                        results.push({
+                            pageName: pageInfo.name,
+                            pageUrl: pageInfo.url,
+                            snippet: item.snippet[lang]
+                        });
+                    }
+                }
+            });
+            return results;
+        }
+
+        // Problem detection function
+        function detectProblem(message, lang) {
+            const lowerMessage = message.toLowerCase().trim();
+            const emotionalPrefixes = {
+                en: ['I’m thrilled to help!', 'Let’s tackle this!', 'I’m here to guide you!'],
+                rw: ['Nishimiye gufasha!', 'Reka dukore iki!', 'Ndi hano kugufasha!'],
+                fr: ['Ravi de vous aider !', 'Allons-y !', 'Je suis là pour vous guider !']
+            };
+            const prefix = emotionalPrefixes[lang][Math.floor(Math.random() * emotionalPrefixes[lang].length)];
+
+            if (lowerMessage.includes('salary') || lowerMessage.includes('pay') || lowerMessage.includes('wage') || 
+                lowerMessage.includes('umushahara') || lowerMessage.includes('salaire')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('salary')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('job') || lowerMessage.includes('apply') || lowerMessage.includes('employment') || 
+                       lowerMessage.includes('akazi') || lowerMessage.includes('emploi')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('job')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('fee') || lowerMessage.includes('cost') || lowerMessage.includes('payment') || 
+                       lowerMessage.includes('scholarship') || lowerMessage.includes('amafaranga') || lowerMessage.includes('frais') || 
+                       lowerMessage.includes('ubufasha')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('fees')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('trade') || lowerMessage.includes('course') || lowerMessage.includes('program') || 
+                       lowerMessage.includes('study') || lowerMessage.includes('amasomo') || lowerMessage.includes('formation')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('software development')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('register') || lowerMessage.includes('enroll') || lowerMessage.includes('admission') || 
+                       lowerMessage.includes('kwiyandikisha') || lowerMessage.includes('inscription')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('student registration')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('accommodation') || lowerMessage.includes('housing') || lowerMessage.includes('dorm') || 
+                       lowerMessage.includes('stay') || lowerMessage.includes('ubukode') || lowerMessage.includes('logement')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('accommodation')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('activities') || lowerMessage.includes('club') || lowerMessage.includes('sport') || 
+                       lowerMessage.includes('imikino') || lowerMessage.includes('activités')) {
+                return `${prefix} ${websiteContentIndex.find(item => item.keywords.includes('activities')).snippet[lang]} ${translations[lang].general}`;
+            } else if (lowerMessage.includes('event') || lowerMessage.includes('news') || lowerMessage.includes('announcement') || 
+                       lowerMessage.includes('amakuru') || lowerMessage.includes('itangazo') || lowerMessage.includes('nouvelles') || 
+                       lowerMessage.includes('événements')) {
+                return `${prefix} ${translations[lang].general}`;
+            }
+            return null;
+        }
+
+        // Toggle chatbot
+        function toggleChatbot() {
+            const isExpanded = chatbotWindow.classList.toggle('active');
+            chatbotToggle.setAttribute('aria-expanded', isExpanded);
+            if (isExpanded) {
+                chatbotInput.focus();
+            } else {
+                chatbotToggle.focus();
+            }
+        }
+
+        chatbotToggle.addEventListener('click', toggleChatbot);
+        chatbotClose.addEventListener('click', toggleChatbot);
+
+        chatbotToggle.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleChatbot();
+            }
+        });
+
+        chatbotClose.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleChatbot();
+            }
+        });
+
+        chatbotWindow.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                const focusableElements = chatbotWindow.querySelectorAll('button, input, select');
+                const firstElement = focusableElements[0];
+                const lastElement = focusableElements[focusableElements.length - 1];
+                if (e.shiftKey && document.activeElement === firstElement) {
+                    e.preventDefault();
+                    lastElement.focus();
+                } else if (!e.shiftKey && document.activeElement === lastElement) {
+                    e.preventDefault();
+                    firstElement.focus();
+                }
+            } else if (e.key === 'Escape') {
+                toggleChatbot();
+            }
+        });
+
+        // Chatbot message handler
+        chatbotSend.addEventListener('click', () => {
+            const message = chatbotInput.value.trim();
+            if (message) {
+                const lang = detectLanguage(message);
+                languageSelector.value = lang; // Update selector to detected language
+
+                // Display user message
+                const userMessage = document.createElement('div');
+                userMessage.className = 'chatbot-user-message';
+                userMessage.innerHTML = `<strong>You:</strong> ${message}`;
+                chatbotMessages.appendChild(userMessage);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                chatbotInput.value = '';
+
+                // Display loading message
+                const loadingMessage = document.createElement('div');
+                loadingMessage.className = 'chatbot-bot-message';
+                loadingMessage.innerHTML = `
+                    <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                    <div class="message-content"><strong>Kageyo Assistant:</strong> ${translations[lang].loading}</div>
+                `;
+                chatbotMessages.appendChild(loadingMessage);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+
+                // Handle navigation
+                const navResult = handleNavigation(message, lang);
+                if (navResult) {
+                    loadingMessage.remove();
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'chatbot-bot-message';
+                    botMessage.innerHTML = `
+                        <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                        <div class="message-content"><strong>Kageyo Assistant:</strong> ${navResult.message}</div>
+                    `;
+                    chatbotMessages.appendChild(botMessage);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    if (navResult.action === 'navigate') {
+                        setTimeout(() => {
+                            window.location.href = navResult.url;
+                        }, 1000);
+                    }
+                    return;
+                }
+
+                // Handle search
+                if (message.toLowerCase().startsWith('search ')) {
+                    const searchQuery = message.replace('search ', '').trim();
+                    const searchResults = searchWebsite(searchQuery, lang);
+                    loadingMessage.remove();
+                    const botMessage = document.createElement('div');
+                    botMessage.className = 'chatbot-bot-message';
+                    const response = searchResults.length > 0
+                        ? `${translations[lang].welcome.includes('Hi there') ? 'Found some info' : translations[lang].welcome.includes('Muraho') ? 'Nabonye amakuru' : 'J’ai trouvé des infos'} for "${searchQuery}":<ul>${searchResults.map(result => `<li><a href="${result.pageUrl}" class="chatbot-link">${result.pageName}</a> - ${result.snippet}</li>`).join('')}</ul>${translations[lang].general}`
+                        : translations[lang].searchNoResults.replace('{query}', searchQuery);
+                    botMessage.innerHTML = `
+                        <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                        <div class="message-content"><strong>Kageyo Assistant:</strong> ${response}</div>
+                    `;
+                    chatbotMessages.appendChild(botMessage);
+                    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+                    return;
+                }
+
+                // Handle problem detection
+                const problemResult = detectProblem(message, lang);
+                loadingMessage.remove();
+                const botMessage = document.createElement('div');
+                botMessage.className = 'chatbot-bot-message';
+                botMessage.innerHTML = `
+                    <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                    <div class="message-content"><strong>Kageyo Assistant:</strong> ${problemResult || translations[lang].help}</div>
+                `;
+                chatbotMessages.appendChild(botMessage);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+        });
+
+        chatbotInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                chatbotSend.click();
+            }
+        });
+
+        // Update welcome message on language change
+        languageSelector.addEventListener('change', () => {
+            const lang = languageSelector.value;
+            const welcomeMessage = document.createElement('div');
+            welcomeMessage.className = 'chatbot-bot-message';
+            welcomeMessage.innerHTML = `
+                <img src="clv.jpg" alt="Kageyo Assistant avatar" />
+                <div class="message-content"><strong>Kageyo Assistant:</strong> ${translations[lang].welcome}</div>
+            `;
+            chatbotMessages.innerHTML = ''; // Clear previous messages
+            chatbotMessages.appendChild(welcomeMessage);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            chatbotInput.placeholder = translations[lang].welcome.includes('Hi there') 
+                ? 'Share your question or worry, I’m all ears!' 
+                : translations[lang].welcome.includes('Muraho')
+                ? 'Vuga ikibazo cyawe, ndumva byose!' 
+                : 'Posez votre question ou inquiétude, je suis tout ouïe !';
+        });
+    </script>
+</body>
+</html>

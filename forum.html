@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kageyo TVET School Forum - Connect with students, staff, and the community in Gicumbi District, Kaniga Sector.">
+    <title>Kageyo TVET School | Forum</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="images/LOGO-KAGEYO-TVET.png" rel="icon">
+    <style>
+        .dropdown-menu {
+            display: none;
+            transition: all 0.3s ease-in-out;
+            z-index: 1000;
+        }
+        .dropdown-menu.active {
+            display: block;
+        }
+        @media (min-width: 769px) {
+            .dropdown-menu {
+                position: absolute;
+                background-color: #ffffff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                border-radius: 0.375rem;
+                min-width: 12rem;
+                top: 100%;
+                left: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            #loader {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                z-index: 1;
+                transform: translate(-50%, -50%);
+            }
+            .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                background-color: #f3f4f6;
+                width: 100%;
+                display: none;
+            }
+            .dropdown-menu.active {
+                display: block;
+            }
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 400px;
+        }
+        .close {
+            float: right;
+            cursor: pointer;
+        }
+        .thread-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .thread-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .banner {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 font-roboto" onload="myFunction()">
+    <header class="bg-white shadow">
+        <div class="bg-blue-600 text-white py-2">
+            <div class="container mx-auto px-4 flex justify-end">
+                <a href="https://chat.whatsapp.com/EkDQiiIS9SYHg8HEZ7cVZ6" target="_blank" class="hover:underline"><i class="fa fa-phone mr-2"></i>Join WhatsApp Group</a>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 py-4">
+            <nav class="flex flex-wrap items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html"><img src="logo.jpg" alt="Kageyo TVET Logo" class="w-20 h-20"></a>
+                    <div>
+                        <a href="index.html" class="text-2xl font-bold text-blue-600">KAGEYO TVET SCHOOL</a>
+                        <p class="text-sm text-gray-500">WORK - COURAGE - SOLIDARITY</p>
+                    </div>
+                </div>
+                <button class="md:hidden text-blue-600" onclick="document.getElementById('navbar').classList.toggle('hidden')">
+                    <i class="fas fa-bars"></i> Toggle menu
+                </button>
+                <div id="navbar" class="hidden md:flex md:items-center w-full md:w-auto mt-4 md:mt-0">
+                    <ul class="flex flex-col md:flex-row md:space-x-6 w-full md:w-auto">
+                        <li><a href="index.html" class="block py-2 text-blue-600 hover:text-blue-800">Home</a></li>
+                        <li><a href="about.html" class="block py-2 text-blue-600 hover:text-blue-800">About Us</a></li>
+                        <li><a href="apply-job.html" class="block py-2 text-blue-600 hover:text-blue-800">Apply for a Job</a></li>
+                        <li class="relative dropdown">
+                            <a href="#" class="block py-2 text-blue-600 hover:text-blue-800 flex items-center">Administration <i class="fas fa-chevron-down ml-2"></i></a>
+                            <ul class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10">
+                                <li><a href="staff.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Staff</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="trainers.html" class="block py-2 text-blue-600 hover:text-blue-800">Trainers</a></li>
+                        <li><a href="trades.html" class="block py-2 text-blue-600 hover:text-blue-800">Trades</a></li>
+                        <li class="relative dropdown">
+                            <a href="#" class="block py-2 text-blue-600 hover:text-blue-800 flex items-center">More <i class="fas fa-chevron-down ml-2"></i></a>
+                            <ul class="dropdown-menu bg-white shadow-lg mt-2 rounded-md w-48 z-10">
+                                <li><a href="news.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">News</a></li>
+                                <li><a href="events.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Events</a></li>
+                                <li><a href="announcements.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Announcements</a></li>
+                                <li><a href="best-performers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Best Performers</a></li>
+                                <li><a href="head-teacher.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Head Teacher</a></li>
+                                <li><a href="student-papers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Papers</a></li>
+                                <li><a href="past-papers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Past Papers</a></li>
+                                <li><a href="employee-of-the-year.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Employee of the Year</a></li>
+                                <li><a href="forum.html" class="block py-2 text-blue-600 hover:bg-blue-100">Forum</a></li>
+                                <li><a href="developers.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Developers</a></li>
+                                <li><a href="student-projects.html" class="block px-4 py-2 text-blue-600 hover:bg-blue-100">Student Projects</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="contact.html" class="block py-2 text-blue-600 hover:text-blue-800">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="banner py-20 text-center text-white">
+        <div class="container mx-auto px-4">
+            <h1 class="text-4xl font-bold mb-4">Kageyo Community Forum</h1>
+            <p class="text-lg mb-6">Connect with students, staff, and the Kageyo community near Kageyo Tea Factory to discuss academics, vocational skills, events, and more.</p>
+        </div>
+    </section>
+
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-xl italic text-gray-700 mb-2">"The best way to find yourself is to lose yourself in the service of others."</p>
+            <p class="text-gray-600">- Mahatma Gandhi, Leader of the Indian Independence Movement</p>
+        </div>
+    </section>
+
+    <main class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-blue-600 mb-2">Kageyo Community Forum</h2>
+                <div class="flex space-x-2 text-sm text-gray-600">
+                    <a href="index.html" class="hover:text-blue-600">Home</a>
+                    <span>/</span>
+                    <span class="text-blue-600">Forum</span>
+                </div>
+                <p class="text-gray-700 mt-2">Current time: <span id="current-time">04:27 PM CAT, Wednesday, May 28, 2025</span></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Sidebar -->
+                <aside class="md:col-span-1 bg-white p-4 rounded-lg shadow">
+                    <h3 class="text-xl font-semibold text-blue-900 mb-4">Categories</h3>
+                    <ul class="space-y-2">
+                        <li><button class="text-blue-600 hover:underline font-medium active-filter" data-category="all">All</button></li>
+                        <li><button class="text-blue-600 hover:underline" data-category="academics">Academics</button></li>
+                        <li><button class="text-blue-600 hover:underline" data-category="vocational-skills">Vocational Skills</button></li>
+                        <li><button class="text-blue-600 hover:underline" data-category="general">General</button></li>
+                        <li><button class="text-blue-600 hover:underline" data-category="events">Events</button></li>
+                    </ul>
+                    <h3 class="text-xl font-semibold text-blue-900 mt-6 mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#profile" class="text-blue-600 hover:underline" onclick="openModal('profileModal')">Profile</a></li>
+                        <li><a href="#" class="text-blue-600 hover:underline">Notifications</a></li>
+                        <li><a href="index.html" class="text-blue-600 hover:underline">Home</a></li>
+                    </ul>
+                </aside>
+
+                <!-- Main Content -->
+                <section class="md:col-span-3">
+                    <div class="bg-white p-6 rounded-lg shadow mb-6">
+                        <h3 class="text-xl font-semibold text-blue-900 mb-2">Welcome to the Forum</h3>
+                        <p class="text-gray-700">This forum is a space for students, staff, and the Kageyo community to connect, share ideas, and support each other. Discuss your learning journey, vocational projects, or upcoming events!</p>
+                        <button onclick="openModal('loginModal')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Login</button>
+                        <button onclick="openModal('newTopicModal')" class="mt-4 ml-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">New Topic</button>
+                    </div>
+
+                    <!-- Discussion Threads -->
+                    <div class="bg-white p-6 rounded-lg shadow">
+                        <h3 class="text-xl font-semibold text-blue-900 mb-4">Discussion Threads</h3>
+                        <div class="flex flex-wrap gap-4 mb-4">
+                            <div>
+                                <h4 class="text-lg font-semibold text-blue-600 mb-2">Sort By:</h4>
+                                <div class="flex space-x-3">
+                                    <button class="text-blue-600 hover:underline font-medium active-sort" data-sort="latest">Latest</button>
+                                    <button class="text-blue-600 hover:underline" data-sort="most-replies">Most Replies</button>
+                                    <button class="text-blue-600 hover:underline" data-sort="pinned">Pinned</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-4" id="threads-list">
+                            <!-- Sample Thread 1 -->
+                            <div class="thread-card bg-white p-6 rounded-lg shadow flex justify-between items-start" data-category="academics" data-replies="5" data-timestamp="2025-05-28T16:00:00">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-blue-900">
+                                        <a href="#" class="hover:underline">Best Resources for Software Development Exams</a>
+                                    </h3>
+                                    <p class="text-gray-600 text-sm mt-1">Posted by Nyandwi Emmanuel in Academics • 5 replies • 28 May 2025, 16:00 CAT</p>
+                                    <p class="text-gray-700 mt-2">I'm preparing for my Level 3 exams in Software Development. Can anyone recommend good resources or past papers?</p>
+                                </div>
+                                <div class="text-gray-500">
+                                    <i class="fas fa-comment mr-1"></i>5
+                                </div>
+                            </div>
+
+                            <!-- Sample Thread 2 -->
+                            <div class="thread-card bg-white p-6 rounded-lg shadow flex justify-between items-start" data-category="events" data-replies="10" data-timestamp="2025-05-27T09:30:00">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-blue-900">
+                                        <a href="#" class="hover:underline">Upcoming Tech Club Hackathon - Who's Joining?</a>
+                                    </h3>
+                                    <p class="text-gray-600 text-sm mt-1">Posted by Shyaka Clever Prince in Events • 10 replies • 27 May 2025, 09:30 CAT</p>
+                                    <p class="text-gray-700 mt-2">The Tech Club is hosting a hackathon next month at Gicumbi Stadium. Let's form teams and brainstorm ideas!</p>
+                                </div>
+                                <div class="text-gray-500">
+                                    <i class="fas fa-comment mr-1"></i>10
+                                </div>
+                            </div>
+
+                            <!-- Sample Thread 3 (Pinned) -->
+                            <div class="thread-card bg-yellow-50 p-6 rounded-lg shadow flex justify-between items-start border-l-4 border-yellow-500" data-category="general" data-replies="3" data-timestamp="2025-05-26T15:00:00" data-pinned="true">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-blue-900">
+                                        <a href="#" class="hover:underline">[Pinned] Forum Guidelines - Please Read</a>
+                                    </h3>
+                                    <p class="text-gray-600 text-sm mt-1">Posted by Ayinkamiye Domitille in General • 3 replies • 26 May 2025, 15:00 CAT</p>
+                                    <p class="text-gray-700 mt-2">Welcome to the forum! Please be respectful, keep discussions relevant, and report any issues to moderators.</p>
+                                </div>
+                                <div class="text-gray-500">
+                                    <i class="fas fa-comment mr-1"></i>3
+                                </div>
+                            </div>
+
+                            <!-- Sample Thread 4 -->
+                            <div class="thread-card bg-white p-6 rounded-lg shadow flex justify-between items-start" data-category="vocational-skills" data-replies="2" data-timestamp="2025-05-25T11:00:00">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-blue-900">
+                                        <a href="#" class="hover:underline">Tips for Networking & IT Certification</a>
+                                    </h3>
+                                    <p class="text-gray-600 text-sm mt-1">Posted by Ntwali Remy in Vocational Skills • 2 replies • 25 May 2025, 11:00 CAT</p>
+                                    <p class="text-gray-700 mt-2">I'm aiming for a certification in Networking & IT. Any advice on preparing for the practical exams?</p>
+                                </div>
+                                <div class="text-gray-500">
+                                    <i class="fas fa-comment mr-1"></i>2
+                                </div>
+                            </div>
+                        </div>
+                        <div id="no-threads" class="hidden text-center text-gray-500 mt-6">
+                            No threads found. Start a new discussion!
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Modals -->
+            <div id="loginModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('loginModal')">×</span>
+                    <h3 class="text-xl font-semibold text-blue-900 mb-4">Login</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Email</label>
+                            <input type="email" class="w-full p-2 border rounded" placeholder="Enter your email">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Password</label>
+                            <input type="password" class="w-full p-2 border rounded" placeholder="Enter your password">
+                        </div>
+                        <p class="text-red-500 mb-2">Invalid email or password.</p>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Log In</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="newTopicModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('newTopicModal')">×</span>
+                    <h3 class="text-xl font-semibold text-blue-900 mb-4">New Topic</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Title</label>
+                            <input type="text" class="w-full p-2 border rounded" placeholder="Enter topic title">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Category</label>
+                            <select class="w-full p-2 border rounded">
+                                <option>Academics</option>
+                                <option>Vocational Skills</option>
+                                <option>General</option>
+                                <option>Events</option>
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Content</label>
+                            <textarea class="w-full p-2 border rounded" rows="4" placeholder="Write your message"></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Attach File (Image/PDF)</label>
+                            <input type="file" class="w-full p-2 border rounded">
+                        </div>
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Post Topic</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="profileModal" class="modal">
+                <div class="modal-content">
+                    <span class="close" onclick="closeModal('profileModal')">×</span>
+                    <h3 class="text-xl font-semibold text-blue-900 mb-4">Profile</h3>
+                    <form>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Name</label>
+                            <input type="text" class="w-full p-2 border rounded" placeholder="Enter your name">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Role</label>
+                            <input type="text" class="w-full p-2 border rounded" placeholder="Enter your role">
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-gray-700">Bio</label>
+                            <textarea class="w-full p-2 border rounded" rows="3" placeholder="Tell us about yourself"></textarea>
+                        </div>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-blue-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <a href="index.html" class="text-2xl font-bold">Kageyo TVET School</a>
+                    <p class="mt-2">Work - Courage - Solidarity</p>
+                    <p class="mt-2">
+                        Northern Province<br>
+                        Gicumbi District<br>
+                        Kaniga Sector
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Useful Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="hover:underline">Home</a></li>
+                        <li><a href="about.html" class="hover:underline">About Us</a></li>
+                        <li><a href="news.html" class="hover:underline">News</a></li>
+                        <li><a href="trades.html" class="hover:underline">Trades</a></li>
+                        <li><a href="contact.html" class="hover:underline">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Information</h3>
+                    <ul class="space-y-2">
+                        <li><a href="developers.html" class="hover:underline">Developers</a></li>
+                        <li><a href="student-projects.html" class="hover:underline">Student Projects</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Location</h3>
+                    <p>
+                        Near Kageyo Tea Factory<br>
+                        Phone: +250 788 521 465<br>
+                        Email: [email protected]
+                    </p>
+                </div>
+            </div>
+            <div class="mt-8 text-center">
+                <p>© Kageyo TVET School 2025</p>
+            </div>
+        </div>
+    </footer>
+
+    <section id="scroll-top" class="fixed bottom-4 right-4 hidden">
+        <a href="#" class="bg-blue-600 text-white p-3 rounded-full shadow-lg hover:bg-blue-700"><i class="fas fa-arrow-up"></i></a>
+    </section>
+    <div id="loader" class="text-center">Loading site</div>
+
+    <script>
+        var myVar;
+        function myFunction() {
+            myVar = setTimeout(showPage, 3000);
+        }
+        function showPage() {
+            document.getElementById("loader").style.display = "none";
+            document.getElementById("scroll-top").style.display = "block";
+        }
+
+        // Update time dynamically
+        function updateTime() {
+            const timeElement = document.getElementById('current-time');
+            const now = new Date();
+            timeElement.textContent = now.toLocaleString('en-US', { timeZone: 'Africa/Kigali', hour12: true, hour: '2-digit', minute: '2-digit' }) + 
+                                    ', ' + now.toLocaleString('en-US', { timeZone: 'Africa/Kigali', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        window.onclick = function(event) {
+            const modals = document.getElementsByClassName('modal');
+            for (let i = 0; i < modals.length; i++) {
+                if (event.target == modals[i]) {
+                    modals[i].style.display = 'none';
+                }
+            }
+        }
+
+        // Dropdown stabilization
+        document.querySelectorAll('.dropdown').forEach(dropdown => {
+            const menu = dropdown.querySelector('.dropdown-menu');
+            let timeout;
+
+            // Mobile click toggle
+            dropdown.addEventListener('click', (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    dropdown.classList.toggle('active');
+                    menu.classList.toggle('active');
+                }
+            });
+
+            // Desktop hover with delay
+            if (window.innerWidth > 768) {
+                dropdown.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                    menu.classList.add('active');
+                });
+
+                dropdown.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                    }, 200);
+                });
+
+                // Keep menu open when hovering over it
+                menu.addEventListener('mouseenter', () => {
+                    clearTimeout(timeout);
+                });
+
+                menu.addEventListener('mouseleave', () => {
+                    timeout = setTimeout(() => {
+                        menu.classList.remove('active');
+                    }, 200);
+                });
+            }
+        });
+
+        // Scroll to top
+        document.querySelector('#scroll-top a').addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Dynamic sorting and filtering
+        const threads = document.querySelectorAll('.thread-card');
+        const threadsList = document.getElementById('threads-list');
+        const noThreadsMessage = document.getElementById('no-threads');
+        let currentSort = 'latest';
+        let currentFilter = 'all';
+
+        // Sort threads
+        document.querySelectorAll('[data-sort]').forEach(button => {
+            button.addEventListener('click', () => {
+                currentSort = button.getAttribute('data-sort');
+                document.querySelectorAll('[data-sort]').forEach(btn => btn.classList.remove('font-medium', 'active-sort'));
+                button.classList.add('font-medium', 'active-sort');
+                updateThreads();
+            });
+        });
+
+        // Filter threads
+        document.querySelectorAll('[data-category]').forEach(button => {
+            button.addEventListener('click', () => {
+                currentFilter = button.getAttribute('data-category');
+                document.querySelectorAll('[data-category]').forEach(btn => btn.classList.remove('font-medium', 'active-filter'));
+                button.classList.add('font-medium', 'active-filter');
+                updateThreads();
+            });
+        });
+
+        function updateThreads() {
+            let filteredThreads = Array.from(threads);
+
+            // Filter by category
+            if (currentFilter !== 'all') {
+                filteredThreads = filteredThreads.filter(thread => thread.getAttribute('data-category') === currentFilter);
+            }
+
+            // Sort threads
+            if (currentSort === 'latest') {
+                filteredThreads.sort((a, b) => new Date(b.getAttribute('data-timestamp')) - new Date(a.getAttribute('data-timestamp')));
+            } else if (currentSort === 'most-replies') {
+                filteredThreads.sort((a, b) => parseInt(b.getAttribute('data-replies')) - parseInt(a.getAttribute('data-replies')));
+            } else if (currentSort === 'pinned') {
+                filteredThreads.sort((a, b) => {
+                    const aPinned = a.getAttribute('data-pinned') === 'true';
+                    const bPinned = b.getAttribute('data-pinned') === 'true';
+                    return bPinned - aPinned;
+                });
+            }
+
+            // Update display
+            threadsList.innerHTML = '';
+            if (filteredThreads.length === 0) {
+                noThreadsMessage.classList.remove('hidden');
+            } else {
+                noThreadsMessage.classList.add('hidden');
+                filteredThreads.forEach(thread => threadsList.appendChild(thread));
+            }
+        }
+
+        // Initial update
+        updateThreads();
+    </script>
+</body>
+</html>
